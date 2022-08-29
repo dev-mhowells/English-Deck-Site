@@ -1,6 +1,8 @@
 import "./index.css";
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 export default function Card(props) {
   const [cardDetails, setCardDetails] = React.useState(false);
 
@@ -20,7 +22,9 @@ export default function Card(props) {
       <h4>Level: Intermediate</h4>
       <div className="card-buttons">
         <button onClick={toggleCardDetails}>details</button>
-        <button>read</button>
+        <Link to={`/${props.article.title}`}>
+          <button>read</button>
+        </Link>
       </div>
     </div>
   ) : (
@@ -44,7 +48,9 @@ export default function Card(props) {
       </div>
       <div className="featured-back-buttons">
         <button onClick={toggleCardDetails}>back</button>
-        <button>read</button>
+        <Link to={`/${props.article.title}`}>
+          <button>read</button>
+        </Link>
       </div>
     </div>
   );
