@@ -6,7 +6,9 @@ export default function Article(props) {
   // function finds artlicle object from article title which
   // is from params above, which in turn gets the value from <Link to>
   // in Card.js
-  let article = props.getArticleDetails(params.articleTitle);
+  let article = props.getArticleDetails(params.articleId);
 
-  return <h2>{article.title}</h2>;
+  console.log("ARTICLE", article);
+  console.log(params.articleId);
+  return <h2>{article.meta.title}</h2>;
 }

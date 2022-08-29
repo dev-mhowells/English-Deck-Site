@@ -14,7 +14,7 @@ function Home(props) {
     setFeaturedDetails(!featuredDetails);
   }
 
-  const allCards = props.cards.map((article) => {
+  const allCards = props.allArticles.map((article) => {
     return <Card article={article} />;
   });
 

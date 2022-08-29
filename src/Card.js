@@ -15,7 +15,7 @@ export default function Card(props) {
       <div className="circle-image-border">
         <img className="featured-image"></img>
       </div>
-      <h3>The Title of the Card</h3>
+      <h3>{props.article.meta.title}</h3>
       <p>
         Just some text explaining stuff about the card. Maybe it's this long.
       </p>
@@ -23,7 +23,7 @@ export default function Card(props) {
       <div className="card-buttons">
         <button onClick={toggleCardDetails}>details</button>
         <button>
-          <Link to={`/${props.article.title}`}>read</Link>
+          <Link to={`/${props.article.meta.id}`}>read</Link>
         </button>
       </div>
     </div>
@@ -48,7 +48,7 @@ export default function Card(props) {
       </div>
       <div className="featured-back-buttons">
         <button onClick={toggleCardDetails}>back</button>
-        <Link to={`/${props.article.title}`}>
+        <Link to={`/${props.article.meta.id}`}>
           <button>read</button>
         </Link>
       </div>
