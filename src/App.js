@@ -1,5 +1,6 @@
 import "./index.css";
 import React from "react";
+import Card from "./Card";
 
 import leftArrow from "./icons/left-arrow.png";
 import rightArrow from "./icons/right-arrow.png";
@@ -8,15 +9,16 @@ import emptyDot from "./icons/empty-dot.png";
 
 function App() {
   const [featuredDetails, setFeaturedDetails] = React.useState(false);
-  const [cardDetails, setCardDetails] = React.useState(false);
+
+  const [cards, setCards] = React.useState([1, 2, 3, 4, 5]);
 
   function toggleFeaturedDetails() {
     setFeaturedDetails(!featuredDetails);
   }
 
-  function toggleCardDetails() {
-    setCardDetails(!cardDetails);
-  }
+  const allCards = cards.map((card) => {
+    return <Card />;
+  });
 
   return (
     <div className="app">
@@ -50,9 +52,6 @@ function App() {
                   this long but probably a bit longer, I don't know.
                 </p>
                 <h4>Level: intermediate</h4>
-                {/* <p>
-                  <b>Author:</b> Brian Smelter
-                </p> */}
                 <div className="featured-buttons">
                   <button onClick={toggleFeaturedDetails}>details</button>
                   <button>read</button>
@@ -112,51 +111,7 @@ function App() {
             <button>oldest</button>
           </div>
         </div>
-        <div className="articles-display">
-          {!cardDetails ? (
-            <div className="article-card">
-              <div className="circle-image-border">
-                <img className="featured-image"></img>
-              </div>
-              <h3>The Title of the Card</h3>
-              <p>
-                Just some text explaining stuff about the card. Maybe it's this
-                long.
-              </p>
-              <h4>Level: Intermediate</h4>
-              <div className="card-buttons">
-                <button onClick={toggleCardDetails}>details</button>
-                <button>read</button>
-              </div>
-            </div>
-          ) : (
-            <div className="article-card-back">
-              <h3 id="featured-back-title">The title of the card</h3>
-              <div className="detail-block">
-                <h3 className="subheading-back">Paragraphs:</h3>
-                <p>3</p>
-              </div>
-              <div className="detail-block">
-                <h3 className="subheading-back">Theme:</h3>
-                <p>people</p>
-              </div>
-              <div className="detail-block">
-                <h3 className="subheading-back">Vocabulary:</h3>
-                <ul>
-                  <li>banana</li>
-                  <li>apple</li>
-                  <li>monkey</li>
-                </ul>
-              </div>
-              <div className="featured-back-buttons">
-                <button onClick={toggleCardDetails}>back</button>
-                <button>read</button>
-              </div>
-            </div>
-          )}
-          <div className="article-card"></div>
-          <div className="article-card"></div>
-        </div>
+        <div className="articles-display">{allCards}</div>
       </section>
     </div>
   );
