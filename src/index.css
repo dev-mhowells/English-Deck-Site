@@ -54,6 +54,15 @@ p {
   font-size: 1.2em;
 }
 
+a {
+  text-decoration: none;
+  color: var(--highlight-color);
+}
+
+a:hover {
+  color: white;
+}
+
 button {
   font-family: "Commissioner", sans-serif;
   border: 2px solid var(--highlight-color);

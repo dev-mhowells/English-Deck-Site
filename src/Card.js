@@ -22,9 +22,9 @@ export default function Card(props) {
       <h4>Level: Intermediate</h4>
       <div className="card-buttons">
         <button onClick={toggleCardDetails}>details</button>
-        <Link to={`/${props.article.title}`}>
-          <button>read</button>
-        </Link>
+        <button>
+          <Link to={`/${props.article.title}`}>read</Link>
+        </button>
       </div>
     </div>
   ) : (
