@@ -3,9 +3,37 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
+import { storage } from "./firebase-config";
+import { ref, getDownloadURL } from "firebase/storage";
+
 export default function Card(props) {
   const [cardDetails, setCardDetails] = React.useState(false);
+  const [imgURL, setImgURL] = React.useState("");
 
+  // fetches image from firebase
+  // uses the image reference passed in to article.meta which
+  // corresponds to the image name
+  React.useEffect(() => {
+    getDownloadURL(ref(storage, `images/${props.article.meta.image}`))
+      .then((url) => {
+        setImgURL(url);
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case "storage/object-not-found":
+            // File doesn't exist
+            break;
+          case "storage/unauthorized":
+            // User doesn't have permission to access the object
+            break;
+          case "storage/unknown":
+            // Unknown error occurred, inspect the server response
+            break;
+        }
+      });
+  }, []);
+
+  // toggles card back and front
   function toggleCardDetails() {
     setCardDetails(!cardDetails);
   }
@@ -13,7 +41,7 @@ export default function Card(props) {
   return !cardDetails ? (
     <div className="article-card">
       <div className="circle-image-border">
-        <img className="featured-image"></img>
+        <img className="featured-image" src={imgURL}></img>
       </div>
       <h3>{props.article.meta.title}</h3>
       <p>

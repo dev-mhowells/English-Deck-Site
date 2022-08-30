@@ -5,15 +5,10 @@ import { Routes, Route } from "react-router-dom";
 import React from "react";
 
 import { db } from "./firebase-config";
+
 import { collection, query, getDocs } from "firebase/firestore";
 
 export default function App() {
-  const [cards, setCards] = React.useState([
-    { title: "title1", difficulty: "hard" },
-    { title: "title2", difficulty: "medium" },
-    { title: "title3", difficulty: "easy" },
-  ]);
-
   const [allArticles, setAllArticles] = React.useState([]);
 
   React.useEffect(() => {
@@ -31,28 +26,45 @@ export default function App() {
     getAllArticles();
   }, []);
 
-  // gets card object from card array
-  //   function getArticleDetails(articleName) {
-  //     return cards.find((card) => card.title === articleName);
-  //   }
-
   function getArticleDetails(articleId) {
     return allArticles.find((article) => article.meta.id === articleId);
   }
+
+  // ----------------------------------------------------- //
+
+//   const [imgURL, setImgURL] = React.useState("");
+
+//   React.useEffect(() => {
+//     getDownloadURL(ref(storage, "images/eye.png"))
+//       .then((url) => {
+//         setImgURL(url);
+//       })
+//       .catch((error) => {
+//         switch (error.code) {
+//           case "storage/object-not-found":
+//             // File doesn't exist
+//             break;
+//           case "storage/unauthorized":
+//             // User doesn't have permission to access the object
+//             break;
+//           case "storage/unknown":
+//             // Unknown error occurred, inspect the server response
+//             break;
+//         }
+//       });
+//   }, []);
+
+//   console.log("IMG URL", imgURL);
 
   console.log("ALL", allArticles);
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<Home cards={cards} allArticles={allArticles} />}
-      />
+      <Route path="/" element={<Home allArticles={allArticles} />} />
       <Route
         path=":articleId"
         element={
           <Article
-            cards={cards}
             allArticles={allArticles}
             getArticleDetails={getArticleDetails}
           />
