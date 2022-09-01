@@ -8,5 +8,7 @@ export default function Article(props) {
   // in Card.js - cannot find by title because spaces etc.
   let article = props.getArticleDetails(params.articleId);
 
-  return <h2>{article.meta.title}</h2>;
+  console.log("THIS IS ARTICLE", article);
+
+  return <h2>{article.articleInfo.title}</h2>;
 }

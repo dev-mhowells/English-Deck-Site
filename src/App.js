@@ -11,7 +11,11 @@ import { collection, query, getDocs } from "firebase/firestore";
 export default function App() {
   const [allArticles, setAllArticles] = React.useState([]);
 
+  // this wont run again when refreshing a /something route..
+  // 1. call a seperate useEffect inside article.js
+  // 2. have some other state change that will cause it to run again..
   React.useEffect(() => {
+    console.log("CALLS TO ARTICLES");
     async function getAllArticles() {
       // clear articles array so that it doesn't double up if useEffect called again
       setAllArticles([]);
@@ -26,35 +30,36 @@ export default function App() {
     getAllArticles();
   }, []);
 
+  // used in article.js to get correct article to render
   function getArticleDetails(articleId) {
-    return allArticles.find((article) => article.meta.id === articleId);
+    return allArticles.find((article) => article.articleId === articleId);
   }
 
   // ----------------------------------------------------- //
 
-//   const [imgURL, setImgURL] = React.useState("");
+  //   const [imgURL, setImgURL] = React.useState("");
 
-//   React.useEffect(() => {
-//     getDownloadURL(ref(storage, "images/eye.png"))
-//       .then((url) => {
-//         setImgURL(url);
-//       })
-//       .catch((error) => {
-//         switch (error.code) {
-//           case "storage/object-not-found":
-//             // File doesn't exist
-//             break;
-//           case "storage/unauthorized":
-//             // User doesn't have permission to access the object
-//             break;
-//           case "storage/unknown":
-//             // Unknown error occurred, inspect the server response
-//             break;
-//         }
-//       });
-//   }, []);
+  //   React.useEffect(() => {
+  //     getDownloadURL(ref(storage, "images/eye.png"))
+  //       .then((url) => {
+  //         setImgURL(url);
+  //       })
+  //       .catch((error) => {
+  //         switch (error.code) {
+  //           case "storage/object-not-found":
+  //             // File doesn't exist
+  //             break;
+  //           case "storage/unauthorized":
+  //             // User doesn't have permission to access the object
+  //             break;
+  //           case "storage/unknown":
+  //             // Unknown error occurred, inspect the server response
+  //             break;
+  //         }
+  //       });
+  //   }, []);
 
-//   console.log("IMG URL", imgURL);
+  //   console.log("IMG URL", imgURL);
 
   console.log("ALL", allArticles);
 

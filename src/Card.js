@@ -11,7 +11,7 @@ export default function Card(props) {
   const [imgURL, setImgURL] = React.useState("");
 
   // fetches image from firebase
-  // uses the image reference passed in to article.meta which
+  // uses the image reference passed in to article.articleInfo which
   // corresponds to the image name
   React.useEffect(() => {
     getDownloadURL(ref(storage, `images/${props.article.articleInfo.image}`))
@@ -51,7 +51,7 @@ export default function Card(props) {
       <div className="card-buttons">
         <button onClick={toggleCardDetails}>details</button>
         <button>
-          <Link to={`/${props.article.articleInfo.id}`}>read</Link>
+          <Link to={`/${props.article.articleId}`}>read</Link>
         </button>
       </div>
     </div>
