@@ -14,7 +14,7 @@ export default function Card(props) {
   // uses the image reference passed in to article.meta which
   // corresponds to the image name
   React.useEffect(() => {
-    getDownloadURL(ref(storage, `images/${props.article.meta.image}`))
+    getDownloadURL(ref(storage, `images/${props.article.articleInfo.image}`))
       .then((url) => {
         setImgURL(url);
       })
@@ -43,7 +43,7 @@ export default function Card(props) {
       <div className="circle-image-border">
         <img className="featured-image" src={imgURL}></img>
       </div>
-      <h3>{props.article.meta.title}</h3>
+      <h3>{props.article.articleInfo.title}</h3>
       <p>
         Just some text explaining stuff about the card. Maybe it's this long.
       </p>
@@ -51,7 +51,7 @@ export default function Card(props) {
       <div className="card-buttons">
         <button onClick={toggleCardDetails}>details</button>
         <button>
-          <Link to={`/${props.article.meta.id}`}>read</Link>
+          <Link to={`/${props.article.articleInfo.id}`}>read</Link>
         </button>
       </div>
     </div>
@@ -76,9 +76,9 @@ export default function Card(props) {
       </div>
       <div className="featured-back-buttons">
         <button onClick={toggleCardDetails}>back</button>
-        <Link to={`/${props.article.meta.id}`}>
+        {/* <Link to={`/${props.article.meta.id}`}>
           <button>read</button>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
