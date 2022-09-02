@@ -2,18 +2,9 @@ import "./index.css";
 import React from "react";
 import Card from "./Card";
 
-import leftArrow from "./icons/left-arrow.png";
-import rightArrow from "./icons/right-arrow.png";
-import dot from "./icons/dot.png";
-import emptyDot from "./icons/empty-dot.png";
+import FeaturedCard from "./FeaturedCard";
 
 function Home(props) {
-  const [featuredDetails, setFeaturedDetails] = React.useState(false);
-
-  function toggleFeaturedDetails() {
-    setFeaturedDetails(!featuredDetails);
-  }
-
   const allCards = props.allArticles.map((article) => {
     return <Card article={article} />;
   });
@@ -35,66 +26,7 @@ function Home(props) {
           <h4>Repeat</h4>
         </div>
       </section>
-      <section className="featured-section">
-        <h2>Featured Article</h2>
-        <div className="featured-card">
-          {!featuredDetails ? (
-            <div className="featured-card-front">
-              <div className="featured-image-border">
-                <img className="featured-image"></img>
-              </div>
-              <div className="featured-info">
-                <h3>The title of the card</h3>
-                <p>
-                  Just some text explaining stuff about the card. Maybe it's
-                  this long but probably a bit longer, I don't know.
-                </p>
-                <h4>Level: intermediate</h4>
-                <div className="featured-buttons">
-                  <button onClick={toggleFeaturedDetails}>details</button>
-                  <button>read</button>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="featured-card-back">
-              <h3 id="featured-back-title">The title of the card</h3>
-              <div className="detail-block">
-                <h3>Paragraphs:</h3>
-                <p>3</p>
-              </div>
-              <div className="detail-block">
-                <h3>Theme:</h3>
-                <p>people</p>
-              </div>
-              <div className="detail-block">
-                <h3>Vocabulary:</h3>
-                <ul>
-                  <li>banana</li>
-                  <li>apple</li>
-                  <li>monkey</li>
-                </ul>
-              </div>
-              <div className="featured-back-buttons">
-                <button onClick={toggleFeaturedDetails}>back</button>
-                <button>read</button>
-              </div>
-            </div>
-          )}
-          <div className="featured-flashcards">
-            <div className="flashcard"></div>
-            <div className="flashcard-nav">
-              <img className="left-arrow" src={leftArrow}></img>
-              <div className="dots">
-                <img className="dot" src={dot}></img>
-                <img className="dot" src={emptyDot}></img>
-                <img className="dot" src={emptyDot}></img>
-              </div>
-              <img className="right-arrow" src={rightArrow}></img>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeaturedCard allArticles={props.allArticles}/>
       <section className="articles-section">
         <h2>All Articles</h2>
         <div className="organise-articles">

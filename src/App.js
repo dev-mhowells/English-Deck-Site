@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import React from "react";
 
 import { db } from "./firebase-config";
-
 import { collection, query, getDocs } from "firebase/firestore";
 
 export default function App() {
@@ -17,9 +16,6 @@ export default function App() {
   React.useEffect(() => {
     console.log("CALLS TO ARTICLES");
     async function getAllArticles() {
-      // clear articles array so that it doesn't double up if useEffect called again
-      setAllArticles([]);
-
       const q = query(collection(db, "articles"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
