@@ -4,7 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 
 import Flashcards from "./Flashcards";
 // import Comments from "./Comments";
-// import Quiz from "./Quiz";
+import Quiz from "./Quiz";
 
 export default function ArticleContent(props) {
   //-----------------------------------------------------------------------
@@ -13,8 +13,8 @@ export default function ArticleContent(props) {
   const [quizStoryDisp, setQuizStoryDisp] = React.useState(true); // tracks display of either quiz or comments section
 
   const [flashcards, setFlashcards] = React.useState([
-    [props.article.vocabulary[0], props.article.vocabulary[1]],
-    [props.article.vocabulary[2], props.article.vocabulary[3]],
+    [props.article?.vocabulary[0], props.article?.vocabulary[1]],
+    [props.article?.vocabulary[2], props.article?.vocabulary[3]],
   ]);
 
   // count is passed into the function in Flashcard.js to ensure current card is saved!
@@ -107,13 +107,13 @@ export default function ArticleContent(props) {
         />
         {
           <p className="article-text test-flex">
-            {props.article.paragraphs[index].text}
+            {props.article?.paragraphs[index].text}
           </p>
         }
       </div>
     ) : (
       <div className="card-text-pair first-pair">
-        <p className="article-text">{props.article.paragraphs[index].text}</p>
+        <p className="article-text">{props.article?.paragraphs[index].text}</p>
         <Flashcards
           savedCards={savedCards}
           save={save}
@@ -162,11 +162,11 @@ export default function ArticleContent(props) {
         </div>
         <div className="article-title-container">
           <p className="author-level">
-            <b>Level:</b> {props.article.articleInfo.level}
+            <b>Level:</b> {props.article?.articleInfo.level}
           </p>
-          <h2 className="article-title">{props.article.articleInfo.title}</h2>
+          <h2 className="article-title">{props.article?.articleInfo.title}</h2>
           <p className="author-level">
-            <b>Author:</b> {props.article.articleInfo.author}
+            <b>Author:</b> {props.article?.articleInfo.author}
           </p>
         </div>
       </div>
@@ -195,15 +195,16 @@ export default function ArticleContent(props) {
         >
           Your Story
         </button>
-        {/* {quizStoryDisp ? (
-          <Quiz />
+        {quizStoryDisp ? (
+          <Quiz article={props.article} />
         ) : (
-          <Comments
-            flashcards={flashcards}
-            userIn={props.userIn}
-            googleSignIn={props.googleSignIn}
-          />
-        )} */}
+          //   <Comments
+          //     flashcards={flashcards}
+          //     userIn={props.userIn}
+          //     googleSignIn={props.googleSignIn}
+          //   />
+          <Quiz article={props.article} />
+        )}
       </div>
     </div>
   );

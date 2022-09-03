@@ -9,12 +9,7 @@ import { auth, provider } from "./firebase-config";
 // -----------------------------------------------------------
 
 export default function Article(props) {
-  //:articleTitle from App.js routing - URL param
   let params = useParams();
-
-  // function finds artlicle object from articleID which
-  // is from params above, which in turn gets the value from <Link to>
-  // in Card.js - cannot find by title because spaces etc.
 
   let article = props.getArticleDetails(params.articleId);
 
@@ -35,12 +30,11 @@ export default function Article(props) {
     signOut(auth);
   }
 
-  console.log("THIS IS THE ARTICLE ----------- ", article);
-
   // ---------------------------------------------------------------
 
-  //   return <h2>{article && article.articleInfo.title}</h2>;
-
+  // CONTENT ONLY LOADS IF THERE IS AN ARTICLE, REMOVES ERRORS IN
+  // CHILD COMPONENTS TRYING TO RENDER BASED ON ARTICLE WHEN DOESNT
+  // EXIST YET
   return (
     <div className="whole-page">
       <nav className="nav">
@@ -61,11 +55,13 @@ export default function Article(props) {
           </p>
         </div>
       </nav>
-      <ArticleContent
-        userIn={userIn}
-        googleSignIn={googleSignIn}
-        article={article}
-      />
+      {article && (
+        <ArticleContent
+          userIn={userIn}
+          googleSignIn={googleSignIn}
+          article={article}
+        />
+      )}
       <footer>
         <p>Home</p>
         <p>Contact</p>
