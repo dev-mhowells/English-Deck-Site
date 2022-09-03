@@ -3,7 +3,7 @@ import { db } from "./firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 
 import Flashcards from "./Flashcards";
-// import Comments from "./Comments";
+import Comments from "./Comments";
 import Quiz from "./Quiz";
 
 export default function ArticleContent(props) {
@@ -198,12 +198,12 @@ export default function ArticleContent(props) {
         {quizStoryDisp ? (
           <Quiz article={props.article} />
         ) : (
-          //   <Comments
-          //     flashcards={flashcards}
-          //     userIn={props.userIn}
-          //     googleSignIn={props.googleSignIn}
-          //   />
-          <Quiz article={props.article} />
+          <Comments
+          quizStoryDisp={quizStoryDisp}
+            flashcards={flashcards}
+            userIn={props.userIn}
+            googleSignIn={props.googleSignIn}
+          />
         )}
       </div>
     </div>
