@@ -32,7 +32,7 @@ export default function Article(props) {
 
   // ---------------------------------------------------------------
 
-  // CONTENT ONLY LOADS IF THERE IS AN ARTICLE, REMOVES ERRORS IN
+  // ARTICLECONTENT ONLY LOADS IF THERE IS AN ARTICLE, REMOVES ERRORS IN
   // CHILD COMPONENTS TRYING TO RENDER BASED ON ARTICLE WHEN DOESNT
   // EXIST YET
   return (

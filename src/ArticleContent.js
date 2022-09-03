@@ -1,6 +1,4 @@
 import React from "react";
-import { db } from "./firebase-config";
-import { collection, getDocs } from "firebase/firestore";
 
 import Flashcards from "./Flashcards";
 import Comments from "./Comments";
@@ -53,24 +51,6 @@ export default function ArticleContent(props) {
 
   // --------------------------------------------------------------------------------
 
-  //   function save(count, groupNumber) {
-  //     // First checks if card with the same title already exists in saved cards, so no dupes added
-  //     let shouldProceed = true;
-  //     for (let savedCard of savedCards) {
-  //       if (flashcards[groupNumber][count].title === savedCard.title) {
-  //         shouldProceed = false;
-  //       }
-  //     }
-  //     // if not a dupe, adds card to savedCards
-  //     if (shouldProceed === true) {
-  //       setSavedCards((prevSavedcards) => [
-  //         ...prevSavedcards,
-  //         flashcards[groupNumber][count],
-  //       ]);
-  //     }
-  //   }
-  // --------------------------------------------------------------------------------
-
   // filter saved cards, if count matches index of card, don't include it
   function deleteCard(count) {
     setSavedCards((prevSavedcards) =>
@@ -87,30 +67,32 @@ export default function ArticleContent(props) {
 
   // ------------ THIS SECTION HANDLES HIGHLIGHTING FLASHCARD WORDS IN THE ARTICLE BODY!!!!!!!
 
-  // //   gets all titles of flashcards i.e. all vocab (repeated code)
-  //     let allFlashTitles = [];
-  //     for (let i in flashcards) {
-  //       let flashTitles = flashcards[i].map((flashcard) => flashcard.title);
-  //       allFlashTitles = [...allFlashTitles, ...flashTitles];
-  //     }
-
-  // //   returns text with styled words if words are in flashcard titles
-  //     function highlightWords(text) {
-  //       if (text.text) {
-  //         const words = text.text.split(" ");
-
-  //         const highlightedText = words.map((word) => {
-  //           if (allFlashTitles.includes(word)) {
-  //             word = <b className="highlighted-word">{`${word + " "}`}</b>;
-  //             return word;
-  //           } else return word + " ";
-  //         });
-  //         return highlightedText;
+  //   //   gets all titles of flashcards i.e. all vocab (repeated code)
+  //       let allFlashTitles = [];
+  //       for (let i in flashcards) {
+  //         let flashTitles = flashcards[i].map((flashcard) => flashcard.title);
+  //         allFlashTitles = [...allFlashTitles, ...flashTitles];
   //       }
-  //     }
+
+  //   //   returns text with styled words if words are in flashcard titles
+  //       function highlightWords(text) {
+  //         if (text.text) {
+  //           const words = text.text.split(" ");
+
+  //           const highlightedText = words.map((word) => {
+  //             if (allFlashTitles.includes(word)) {
+  //               word = <b className="highlighted-word">{`${word + " "}`}</b>;
+  //               return word;
+  //             } else return word + " ";
+  //           });
+  //           return highlightedText;
+  //         }
+  //       }
 
   // FLASHCARDS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+  //   maps over number of flashcard groups (firebase collections)
+  //   passes in set and identifier of group as groupNumber so card can be id'd and saved
   const cardTextPair = flashcards.map((set, index) =>
     index % 2 !== 0 ? (
       <div className="card-text-pair ">
@@ -138,32 +120,6 @@ export default function ArticleContent(props) {
       </div>
     )
   );
-
-  //   maps over number of flashcard groups (firebase collections)
-  //   passes in group and identifier of group as groupNumber so card can be id'd and saved
-  //   const flashymap = flashcards.map((group, i) =>
-  //     i % 2 !== 0 ? (
-  //       <div className="card-text-pair ">
-  //         <Flashcards
-  //           savedCards={savedCards}
-  //           save={save}
-  //           flashcards={group}
-  //           groupNumber={i}
-  //         />
-  //         {<p className="article-text test-flex">{highlightWords(text[1])}</p>}
-  //       </div>
-  //     ) : (
-  //       <div className="card-text-pair first-pair">
-  //         <p className="article-text">{highlightWords(text[0])}</p>
-  //         <Flashcards
-  //           savedCards={savedCards}
-  //           save={save}
-  //           flashcards={group}
-  //           groupNumber={i}
-  //         />
-  //       </div>
-  //     )
-  //   );
 
   // --------------------------------------------------------------------------
 
@@ -214,6 +170,7 @@ export default function ArticleContent(props) {
           <Quiz article={props.article} />
         ) : (
           <Comments
+          article={props.article}
             quizStoryDisp={quizStoryDisp}
             flashcards={flashcards}
             userIn={props.userIn}
