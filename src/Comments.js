@@ -28,7 +28,7 @@ export default function Comments(props) {
   const [usedWords, setUsedWords] = React.useState([]); // real time updated list of words user has written and match checklist
   const [posts, setPosts] = React.useState([]); // user submitted posts stored in Firebase
   const [currentComment, setCurrentComment] = React.useState(0); // manages displayed comment
-  const [comments, setComments] = React.useState([]);
+  const [comments, setComments] = React.useState(props.article.comments);
 
   function getAllVocabWords() {
     return props.article.vocabulary.map((wordObj) => wordObj.word);
@@ -48,96 +48,46 @@ export default function Comments(props) {
   }
 
   // updates Firebase with newly created post
-  const postsCollectionRef = collection(db, "posts");
+  //   const postsCollectionRef = collection(db, "posts");
 
-  const q = query(postsCollectionRef, orderBy("createdAt", "desc"));
+  //   const q = query(postsCollectionRef, orderBy("createdAt", "desc"));
 
-  async function createPost() {
-    await addDoc(postsCollectionRef, {
-      createdAt: serverTimestamp(),
-      post: userStory,
-      usedWords: usedWords,
-      author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
-    });
-    setUserStory("");
-    setUsedWords([]);
-    lastComment();
-  }
-
-  //   async function createComment() {
-  //     await setDoc(
-  //       doc(db, "comments", props.article.articleInfo.title),
-  //       {
-  //         createdAt: serverTimestamp(),
-  //         post: userStory,
-  //         usedWords: usedWords,
-  //         author: {
-  //           name: auth.currentUser.displayName,
-  //           id: auth.currentUser.uid,
-  //         },
-  //       },
-  //       { merge: true }
-  //     );
-  //     setUserStory("");
-  //     setUsedWords([]);
-  //     lastComment();
-  //   }
-
-  async function createComment() {
-    await setDoc(doc(db, "comments", props.article.articleInfo.title), {
-      comments: [
-        ...comments,
-        {
-          createdAt: serverTimestamp(),
-          post: userStory,
-          usedWords: usedWords,
-          author: {
-            name: auth.currentUser.displayName,
-            id: auth.currentUser.uid,
-          },
+  // creates subcollection of comments inside the article document
+  async function createSubcollection() {
+    await addDoc(
+      collection(db, "articles", props.article.articleInfo.title, "comments"),
+      {
+        createdAt: serverTimestamp(),
+        post: userStory,
+        usedWords: usedWords,
+        author: {
+          name: auth.currentUser.displayName,
+          id: auth.currentUser.uid,
         },
-      ],
-    });
-    setUserStory("");
-    setUsedWords([]);
-    lastComment();
-  }
-
-  // CAN USE ARRAY UNTION TO MAKE COMMENTS AN ARRAY BUT THEN NEED TO
-  // INITIALLY CREATE DOC FIRST - IF DONE THIS WAY, DO THROUGH CMS
-  //   async function createComment() {
-  //     await updateDoc(
-  //       doc(db, "comments", props.article.articleInfo.title),
-  //       {
-  //         comments: arrayUnion({
-  //           //   createdAt: serverTimestamp(),
-  //           post: userStory,
-  //           usedWords: usedWords,
-  //           author: {
-  //             name: auth.currentUser.displayName,
-  //             id: auth.currentUser.uid,
-  //           },
-  //         }),
-  //       },
-  //       { merge: true }
-  //     );
-  //     setUserStory("");
-  //     setUsedWords([]);
-  //     lastComment();
-  //   }
-
-  // subscription / real time snapshot update of data - use onSnapshot instead of getDocs
-  // onSnapshot fires on initial render, does not return promise
-  // FIRES A BUNCH OF TIMES ON COMMENT SUBMIT???????
-  React.useEffect(() => {
-    const articleComments = onSnapshot(
-      doc(db, "comments", props.article.articleInfo.title),
-      (doc) => {
-        console.log("SNAPPY", doc.data());
-        setComments(doc.data());
       }
     );
+    setUserStory("");
+    setUsedWords([]);
+    lastComment();
+  }
+
+  // updates comment section
+  // subscription / real time snapshot update of data - use onSnapshot instead of getDocs
+  // onSnapshot fires on initial render, does not return promise
+  React.useEffect(() => {
+    const q = query(
+      collection(db, "articles", props.article.articleInfo.title, "comments")
+    );
+    onSnapshot(q, (snapshot) => {
+      setComments([]);
+      const allComments = snapshot.docs.map((doc) => {
+        return { ...doc.data() };
+      });
+      setComments(allComments);
+    });
   }, []);
+
+  console.log("THESE ARE COMMENTS", comments);
 
   // reads input of text area on keystroke, checks if checklist word is written, if so adds to usedWords
   // also checks usedWords, if item in usedWords is no longer in textarea, removes
@@ -213,10 +163,10 @@ export default function Comments(props) {
             ></img>
           )}
 
-          <p className="post-body">{post.text}</p>
+          <p className="post-body">{post.post}</p>
           <p className="post-author">
             <b>By: </b>
-            {post.author}
+            {post.author.name}
           </p>
         </div>
       );
@@ -240,7 +190,7 @@ export default function Comments(props) {
             ></textarea>
             <button
               className="post-btn"
-              onClick={props.userIn ? createComment : props.googleSignIn}
+              onClick={props.userIn ? createSubcollection : props.googleSignIn}
             >
               {props.userIn ? "post" : "log in to post"}
             </button>
@@ -260,7 +210,7 @@ export default function Comments(props) {
             onClick={lastComment}
             className="triangle"
           ></img>
-          {/* {postsDisplay[currentComment]} */}
+          {postsDisplay && postsDisplay[currentComment]}
           <img
             src={rightTriangle}
             onClick={nextComment}
