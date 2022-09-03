@@ -12,10 +12,25 @@ export default function ArticleContent(props) {
   const [savedCards, setSavedCards] = React.useState([]); // tracks cards saved by user
   const [quizStoryDisp, setQuizStoryDisp] = React.useState(true); // tracks display of either quiz or comments section
 
-  const [flashcards, setFlashcards] = React.useState([
-    [props.article?.vocabulary[0], props.article?.vocabulary[1]],
-    [props.article?.vocabulary[2], props.article?.vocabulary[3]],
-  ]);
+  const [flashcards, setFlashcards] = React.useState(splitVocab()); // see function below
+
+  // splits original array of vocabulary from database into an array of
+  // arrays with each nested array representing a different paragraph
+  // database vocabulary objects come with paragraph number attached,
+  // its purpose is to match with the correct paragraph.
+  function splitVocab() {
+    let splitByPara = [];
+    for (let paragraphObj of props.article.paragraphs) {
+      let arr = [];
+      for (let vocabObj of props.article.vocabulary) {
+        if (Number(vocabObj.paragraphNumber) === paragraphObj.number) {
+          arr.push(vocabObj);
+        }
+      }
+      splitByPara.push(arr);
+    }
+    return splitByPara;
+  }
 
   // count is passed into the function in Flashcard.js to ensure current card is saved!
   // groupNumber is passed in to ensure the correct flashcard group
@@ -199,7 +214,7 @@ export default function ArticleContent(props) {
           <Quiz article={props.article} />
         ) : (
           <Comments
-          quizStoryDisp={quizStoryDisp}
+            quizStoryDisp={quizStoryDisp}
             flashcards={flashcards}
             userIn={props.userIn}
             googleSignIn={props.googleSignIn}
