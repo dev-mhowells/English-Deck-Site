@@ -1,5 +1,8 @@
 import React from "react";
 
+import { storage } from "./firebase-config";
+import { ref, getDownloadURL } from "firebase/storage";
+
 import Flashcards from "./Flashcards";
 import Comments from "./Comments";
 import Quiz from "./Quiz";
@@ -11,6 +14,32 @@ export default function ArticleContent(props) {
   const [quizStoryDisp, setQuizStoryDisp] = React.useState(true); // tracks display of either quiz or comments section
 
   const [flashcards, setFlashcards] = React.useState(splitVocab()); // see function below
+
+  const [imgURL, setImgURL] = React.useState("");
+
+  // NOT SURE IF THERE IS A WAY NOT TO REPEAT THIS CALL..
+  // fetches image from firebase
+  // uses the image reference passed in to article.articleInfo which
+  // corresponds to the image name
+  React.useEffect(() => {
+    getDownloadURL(ref(storage, `images/${props.article.articleInfo.image}`))
+      .then((url) => {
+        setImgURL(url);
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case "storage/object-not-found":
+            // File doesn't exist
+            break;
+          case "storage/unauthorized":
+            // User doesn't have permission to access the object
+            break;
+          case "storage/unknown":
+            // Unknown error occurred, inspect the server response
+            break;
+        }
+      });
+  }, []);
 
   // splits original array of vocabulary from database into an array of
   // arrays with each nested array representing a different paragraph
@@ -128,7 +157,7 @@ export default function ArticleContent(props) {
       <div className="card-text-pair">
         <div className="title-image-container">
           <div className="image-border">
-            <img className="title-image"></img>
+            <img className="title-image" src={imgURL}></img>
           </div>
         </div>
         <div className="article-title-container">
@@ -170,7 +199,7 @@ export default function ArticleContent(props) {
           <Quiz article={props.article} />
         ) : (
           <Comments
-          article={props.article}
+            article={props.article}
             quizStoryDisp={quizStoryDisp}
             flashcards={flashcards}
             userIn={props.userIn}
