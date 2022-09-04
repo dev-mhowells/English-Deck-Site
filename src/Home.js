@@ -5,9 +5,11 @@ import Card from "./Card";
 import FeaturedCard from "./FeaturedCard";
 
 function Home(props) {
-  const allCards = props.allArticles.map((article) => {
-    return <Card article={article} />;
-  });
+  const allCards =
+    props.allArticles &&
+    props.allArticles.map((article) => {
+      return <Card article={article} />;
+    });
 
   return (
     <div className="app">
@@ -26,7 +28,7 @@ function Home(props) {
           <h4>Repeat</h4>
         </div>
       </section>
-      <FeaturedCard allArticles={props.allArticles} />
+      {props.allArticles && <FeaturedCard allArticles={props.allArticles} />}
       <section className="articles-section">
         <h2>All Articles</h2>
         <div className="organise-articles">

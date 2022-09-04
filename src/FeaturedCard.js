@@ -16,25 +16,27 @@ export default function FeaturedCard(props) {
   // uses the image reference passed in to article.articleInfo which
   // corresponds to the image name
   React.useEffect(() => {
-    getDownloadURL(
-      ref(storage, `images/${props.allArticles[0].articleInfo.image}`)
-    )
-      .then((url) => {
-        setImgURL(url);
-      })
-      .catch((error) => {
-        switch (error.code) {
-          case "storage/object-not-found":
-            // File doesn't exist
-            break;
-          case "storage/unauthorized":
-            // User doesn't have permission to access the object
-            break;
-          case "storage/unknown":
-            // Unknown error occurred, inspect the server response
-            break;
-        }
-      });
+    if (props.allArticles[0]) {
+      getDownloadURL(
+        ref(storage, `images/${props.allArticles[0].articleInfo.image}`)
+      )
+        .then((url) => {
+          setImgURL(url);
+        })
+        .catch((error) => {
+          switch (error.code) {
+            case "storage/object-not-found":
+              // File doesn't exist
+              break;
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              break;
+            case "storage/unknown":
+              // Unknown error occurred, inspect the server response
+              break;
+          }
+        });
+    }
   }, []);
 
   function toggleFeaturedDetails() {
