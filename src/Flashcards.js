@@ -18,6 +18,8 @@ export default function Flashcards(props) {
     props.flashcards.length > 0 && setCardData(props.flashcards[count]);
   }, [count, props.flashcards]);
 
+  console.log("THESE ARE THE FLASHCARDS", props.flashcards);
+
   function test() {
     if (props.savedCards) {
       for (let savedCard of props.savedCards) {

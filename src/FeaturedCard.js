@@ -4,6 +4,7 @@ import leftArrow from "./icons/left-arrow.png";
 import rightArrow from "./icons/right-arrow.png";
 import dot from "./icons/dot.png";
 import emptyDot from "./icons/empty-dot.png";
+import Flashcards from "./Flashcards";
 
 export default function FeaturedCard(props) {
   const [featuredDetails, setFeaturedDetails] = React.useState(false);
@@ -60,7 +61,8 @@ export default function FeaturedCard(props) {
             </div>
           )}
           <div className="featured-flashcards">
-            <div className="flashcard"></div>
+            <Flashcards flashcards={props.allArticles[0].vocabulary} />
+            {/* <div className="flashcard"></div>
             <div className="flashcard-nav">
               <img className="left-arrow" src={leftArrow}></img>
               <div className="dots">
@@ -69,7 +71,7 @@ export default function FeaturedCard(props) {
                 <img className="dot" src={emptyDot}></img>
               </div>
               <img className="right-arrow" src={rightArrow}></img>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
