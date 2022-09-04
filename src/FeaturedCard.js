@@ -1,9 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import leftArrow from "./icons/left-arrow.png";
-import rightArrow from "./icons/right-arrow.png";
-import dot from "./icons/dot.png";
-import emptyDot from "./icons/empty-dot.png";
 import Flashcards from "./Flashcards";
 
 import { storage } from "./firebase-config";
@@ -60,7 +57,9 @@ export default function FeaturedCard(props) {
                 <h4>Level: {props.allArticles[0].articleInfo.level}</h4>
                 <div className="featured-buttons">
                   <button onClick={toggleFeaturedDetails}>details</button>
-                  <button>read</button>
+                  <Link to={`/${props.allArticles[0].articleId}`}>
+                    <button>read</button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -93,16 +92,6 @@ export default function FeaturedCard(props) {
           )}
           <div className="featured-flashcards">
             <Flashcards flashcards={props.allArticles[0].vocabulary} />
-            {/* <div className="flashcard"></div>
-            <div className="flashcard-nav">
-              <img className="left-arrow" src={leftArrow}></img>
-              <div className="dots">
-                <img className="dot" src={dot}></img>
-                <img className="dot" src={emptyDot}></img>
-                <img className="dot" src={emptyDot}></img>
-              </div>
-              <img className="right-arrow" src={rightArrow}></img>
-            </div> */}
           </div>
         </div>
       </section>

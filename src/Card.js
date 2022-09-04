@@ -48,9 +48,9 @@ export default function Card(props) {
       <h4>Level: {props.article.articleInfo.level}</h4>
       <div className="card-buttons">
         <button onClick={toggleCardDetails}>details</button>
-        <button>
-          <Link to={`/${props.article.articleId}`}>read</Link>
-        </button>
+        <Link to={`/${props.article.articleId}`}>
+          <button className="button">read</button>
+        </Link>
       </div>
     </div>
   ) : (

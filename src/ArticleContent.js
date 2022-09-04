@@ -174,7 +174,7 @@ export default function ArticleContent(props) {
 
       {savedCards[0] && (
         <div>
-          <h3 className="saved-cards-title">Your Review Deck</h3>
+          <h2 className="saved-cards-title">Your Review Deck</h2>
           <Flashcards
             save={save}
             flashcards={savedCards}

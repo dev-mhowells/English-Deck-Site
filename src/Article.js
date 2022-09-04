@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import React from "react";
 import ArticleContent from "./ArticleContent";
 
@@ -51,7 +51,9 @@ export default function Article(props) {
         </div>
         <div className="nav-right">
           <ul>
-            <li>Home</li>
+            <Link to={`/`}>
+              <li>Home</li>
+            </Link>
             <li>About</li>
             <li>Contact</li>
           </ul>

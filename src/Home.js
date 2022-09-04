@@ -26,7 +26,7 @@ function Home(props) {
           <h4>Repeat</h4>
         </div>
       </section>
-      <FeaturedCard allArticles={props.allArticles}/>
+      <FeaturedCard allArticles={props.allArticles} />
       <section className="articles-section">
         <h2>All Articles</h2>
         <div className="organise-articles">
@@ -43,6 +43,11 @@ function Home(props) {
         </div>
         <div className="articles-display">{allCards}</div>
       </section>
+      <footer>
+        <p>Information</p>
+        <p>Information</p>
+        <p>Information</p>
+      </footer>
     </div>
   );
 }
