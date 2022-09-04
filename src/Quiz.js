@@ -5,7 +5,24 @@ import { v4 as uuidv4 } from "uuid";
 export default function Quiz(props) {
   // -------------------------- ---------------------------
 
-  const [quiz, setQuiz] = React.useState(props.article?.quiz);
+  // initialise with quiz, prevents problems with rendering
+  const [quiz, setQuiz] = React.useState(props.article.quiz);
+
+  // randomises order of quiz articles on initial render only
+  // in useEffect because placed elsewhere will randomise answer order on every state chenge in component
+  React.useEffect(() => {
+    function randomiseAnswerOrder() {
+      const randomised = props.article.quiz.map((quiz) => {
+        let randomOrder = quiz.answers.sort((a, b) => 0.5 - Math.random());
+        return {
+          ...quiz,
+          answers: randomOrder,
+        };
+      });
+      setQuiz(randomised);
+    }
+    randomiseAnswerOrder();
+  }, []);
 
   //-----------------------------------------------------------------------
 
@@ -65,22 +82,18 @@ export default function Quiz(props) {
 
   return (
     <div className="app-container">
-      <div className="quiz-title-container">
-        <h4 className="quiz-title">How much did you understand?</h4>
-        {quiz[0] && quiz[0].hasOwnProperty("choseCorrectly") && (
-          <button className="again-btn" onClick={resetQuiz}>
-            reset
-          </button>
-        )}
-      </div>
       <div className="quiz-container">{quizDisplay}</div>
       <button
-        className={`check-btn ${
-          quiz[0] && quiz[0].hasOwnProperty("choseCorrectly") && "disabled"
-        }`}
-        onClick={checkAnswers}
+        className={` check-btn`}
+        onClick={
+          quiz[0] && quiz[0].hasOwnProperty("choseCorrectly")
+            ? resetQuiz
+            : checkAnswers
+        }
       >
-        check
+        {quiz[0] && quiz[0].hasOwnProperty("choseCorrectly")
+          ? "reset"
+          : "check"}
       </button>
     </div>
   );

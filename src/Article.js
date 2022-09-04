@@ -39,20 +39,22 @@ export default function Article(props) {
     <div className="whole-page">
       <nav className="nav">
         <div className="nav-left">
-          <p className="nav-link">Home</p>
-          <p className="nav-link">About</p>
-          <p className="nav-link">Contact</p>
-        </div>
-        <div className="nav-title">
-          <h1 className="nav-title">English Deck</h1>
-        </div>
-        <div className="nav-right">
           <p
             className="nav-link login"
             onClick={!userIn ? googleSignIn : googleSignOut}
           >
             {!userIn ? "Login" : "Log out"}
           </p>
+        </div>
+        <div className="nav-title">
+          <h2 className="nav-title">English Deck</h2>
+        </div>
+        <div className="nav-right">
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
         </div>
       </nav>
       {article && (

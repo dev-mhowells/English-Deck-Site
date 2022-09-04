@@ -14,7 +14,6 @@ export default function App() {
   // 1. call a seperate useEffect inside article.js
   // 2. have some other state change that will cause it to run again..
   React.useEffect(() => {
-    console.log("CALLS TO ARTICLES");
     async function getAllArticles() {
       const q = query(collection(db, "articles"));
       const querySnapshot = await getDocs(q);

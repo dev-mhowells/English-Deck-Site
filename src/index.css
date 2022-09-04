@@ -75,7 +75,8 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.home button:hover,
+.quiz-container button:hover {
   background-color: var(--highlight-color);
   color: white;
 }
@@ -395,6 +396,7 @@ featured-image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 }
 
 .title-image-container {
@@ -561,13 +563,11 @@ featured-image-container {
 
 .nav-link {
   /* cursor: pointer; */
-  /* font-size: 22px; */
   font-weight: 500;
   font-family: "Commissioner", sans-serif;
 }
 
 .nav-title {
-  font-size: 38px;
   font-family: "Fraunces", serif;
   justify-self: center;
   align-self: center;
@@ -575,7 +575,7 @@ featured-image-container {
 
 .nav {
   width: 90%;
-  height: 100px;
+  height: 5em;
   border-bottom: 2px solid #023047;
   box-shadow: 0px 4px 2px -2px rgba(0, 0, 0, 0.25);
   position: relative;
@@ -602,8 +602,7 @@ featured-image-container {
 
 .login {
   cursor: pointer;
-  border: 2px solid #023047;
-  /* padding: 8px 16px; */
+  border: 2px solid var(--highlight-color);
   padding: 0.3em 0.7em;
 }
 
@@ -620,14 +619,10 @@ featured-image-container {
     display: grid;
     grid-template-columns: 80px 1fr 80px;
     grid-template-rows: 0.8fr 0.2fr;
-    /* align-items: center;
-    justify-items: center; */
   }
 
   .nav-title {
     font-size: 26px;
-    /* grid-column: 2; */
-    /* margin-left: 20px; */
     position: absolute;
     top: 4px;
     left: 0px;
@@ -848,13 +843,12 @@ featured-image-container {
 
 .answer {
   /* padding: 5px 15px; */
-  padding: 0.4em 0.7em;
+  padding: 0.3em 0.7em;
   border: 1px solid #023047;
   box-sizing: border-box;
-  border-radius: 1em;
   background: transparent;
   font-family: "Commissioner", sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   color: black;
 }
 
@@ -904,22 +898,10 @@ featured-image-container {
   justify-self: center;
 }
 
-.check-btn,
 .again-btn,
 .post-btn {
-  background-color: #023047;
-  color: #f5f7fb;
-  border: none;
-  border-radius: 1em;
-  cursor: pointer;
   margin-top: 25px;
   margin-bottom: 25px;
-  font-family: "Commissioner", sans-serif;
-  font-weight: 200;
-  /* padding: 6px 30px; */
-  padding: 0.4em 1.2em;
-  font-size: 18px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .check-btn {
@@ -941,7 +923,8 @@ featured-image-container {
 }
 
 .selected {
-  background-color: rgba(126, 191, 221, 0.6);
+  background-color: var(--highlight-color);
+  color: white;
 }
 
 .correct {
@@ -968,7 +951,6 @@ featured-image-container {
     font-size: 18px;
   }
 
-  .check-btn,
   .again-btn,
   .post-btn {
     font-size: 16px;

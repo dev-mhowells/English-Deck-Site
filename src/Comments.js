@@ -26,16 +26,14 @@ export default function Comments(props) {
   const [userStory, setUserStory] = React.useState(""); // user input on page
   const [checklist, setChecklist] = React.useState(getAllVocabWords()); // list of target words from article
   const [usedWords, setUsedWords] = React.useState([]); // real time updated list of words user has written and match checklist
-  const [posts, setPosts] = React.useState([]); // user submitted posts stored in Firebase
   const [currentComment, setCurrentComment] = React.useState(0); // manages displayed comment
-  const [comments, setComments] = React.useState(props.article.comments);
+  const [comments, setComments] = React.useState(props.article.comments); // user submitted comments stored in Firebase
 
   function getAllVocabWords() {
     return props.article.vocabulary.map((wordObj) => wordObj.word);
   }
 
-  console.log("COMMENTS", comments);
-
+  // NEED TO WORK ON THIS CODE TO MANAGE DELETION OF FIRST COMMENT - CAUSES BUG
   // manages currently displayed comment
   function nextComment() {
     currentComment < postsDisplay.length - 1 &&
@@ -47,11 +45,7 @@ export default function Comments(props) {
       currentComment > 0 && setCurrentComment((prevComment) => prevComment - 1);
   }
 
-  // updates Firebase with newly created post
-  //   const postsCollectionRef = collection(db, "posts");
-
-  //   const q = query(postsCollectionRef, orderBy("createdAt", "desc"));
-
+  // updates Firebase with newly created comment
   // creates subcollection of comments inside the article document
   async function createSubcollection() {
     await addDoc(
@@ -88,8 +82,6 @@ export default function Comments(props) {
       setComments(allComments);
     });
   }, []);
-
-  console.log("THESE ARE COMMENTS", comments);
 
   // reads input of text area on keystroke, checks if checklist word is written, if so adds to usedWords
   // also checks usedWords, if item in usedWords is no longer in textarea, removes
@@ -152,7 +144,6 @@ export default function Comments(props) {
   const postsDisplay =
     comments &&
     comments.map((post) => {
-      console.log("POSTID", post.id);
       return (
         <div className="posted-story">
           {props.userIn && post.author.id === auth.currentUser.uid && (
@@ -185,12 +176,12 @@ export default function Comments(props) {
     <div>
       <div className="comment-section-container">
         <div className="comment-section">
-          <h4 className="comment-section-title">
+          <h3 className="comment-section-title">
             Practice using the words from the article
-          </h4>
-          <p className="comment-section-subtitle">
+          </h3>
+          {/* <p className="comment-section-subtitle">
             <b>Leave a comment or tell your own story!</b>
-          </p>
+          </p> */}
           <div className="post-box">
             <textarea
               className="textarea"
@@ -207,7 +198,7 @@ export default function Comments(props) {
           <div className="checklist-container">{checklistDisplay}</div>
           <div className="more-stories">
             <img src={downArrow}></img>
-            <p>Stories from other learners</p>
+            <h3>Stories from other learners</h3>
           </div>
         </div>
       </div>

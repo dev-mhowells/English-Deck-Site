@@ -1,6 +1,18 @@
 import { v4 as uuidv4 } from "uuid";
 
 export default function QuestionAns(props) {
+  // randomize answer order
+  //   setQuiz((prevQuiz) =>
+  //   prevQuiz.map((quizObj) => ({
+  //     ...quizObj,
+  //     answers: quizObj.answers.sort((a, b) => 0.5 - Math.random()),
+  //   }))
+  // );
+
+  // const randomisedAnswerOrder = props.answers.sort(
+  //   (a, b) => 0.5 - Math.random()
+  // );
+
   const allAnswers = props.answers.map((answer, answerNum) => {
     return (
       <button

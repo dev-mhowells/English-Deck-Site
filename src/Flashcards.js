@@ -21,12 +21,6 @@ export default function Flashcards(props) {
   function test() {
     if (props.savedCards) {
       for (let savedCard of props.savedCards) {
-        console.log(
-          "CARDDATA TITLE",
-          cardData.title,
-          "SAVED TITLE",
-          savedCard.title
-        );
         if (cardData.word === savedCard.word) {
           return addFilled;
         }
