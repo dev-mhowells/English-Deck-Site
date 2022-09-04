@@ -74,6 +74,8 @@ export default function Comments(props) {
   // updates comment section
   // subscription / real time snapshot update of data - use onSnapshot instead of getDocs
   // onSnapshot fires on initial render, does not return promise
+  // also gets id, which is the auto-generated doc name on document creation done by FB
+  // this is used to delete and update.
   React.useEffect(() => {
     const q = query(
       collection(db, "articles", props.article.articleInfo.title, "comments")
@@ -81,7 +83,7 @@ export default function Comments(props) {
     onSnapshot(q, (snapshot) => {
       setComments([]);
       const allComments = snapshot.docs.map((doc) => {
-        return { ...doc.data() };
+        return { ...doc.data(), id: doc.id };
       });
       setComments(allComments);
     });
@@ -115,7 +117,13 @@ export default function Comments(props) {
 
   // deletes post from Firebase
   async function deletePost(postId) {
-    const postDoc = doc(db, "posts", postId);
+    const postDoc = doc(
+      db,
+      "articles",
+      props.article.articleInfo.title,
+      "comments",
+      postId
+    );
     await deleteDoc(postDoc);
   }
 
@@ -144,6 +152,7 @@ export default function Comments(props) {
   const postsDisplay =
     comments &&
     comments.map((post) => {
+      console.log("POSTID", post.id);
       return (
         <div className="posted-story">
           {props.userIn && post.author.id === auth.currentUser.uid && (
