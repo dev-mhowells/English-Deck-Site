@@ -37,7 +37,7 @@ export default function FeaturedCard(props) {
           }
         });
     }
-  }, []);
+  }, [props.allArticles]);
 
   function toggleFeaturedDetails() {
     setFeaturedDetails(!featuredDetails);
