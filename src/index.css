@@ -153,45 +153,6 @@ nav li {
   padding-bottom: var(--standard-spacing);
 }
 
-/* .featured-card {
-  margin-top: var(--standard-spacing);
-  width: 80%;
-  aspect-ratio: 1.5/ 0.5;
-  background-color: var(--secondary-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  display: flex;
-}
-
-@media (max-width: 1200px) {
-  .featured-card {
-    width: 100%;
-  }
-  .featured-card p {
-    font-size: 1em;
-    line-height: 1.5em;
-  }
-}
-
-@media (max-width: 1000px) {
-  .featured-card .featured-image-border {
-    display: none;
-  }
-  .featured-card .featured-info {
-    width: 90%;
-  }
-}
-
-@media (max-width: 700px) {
-  .featured-card .featured-image-border {
-    display: grid;
-  }
-  .featured-card .featured-flashcards {
-    display: none;
-  }
-
-} */
-
 .featured-card {
   margin-top: var(--standard-spacing);
 
@@ -223,6 +184,10 @@ nav li {
   line-height: 1.5em;
 }
 
+.featured-card h3 {
+  text-align: center;
+}
+
 @media (min-width: 700px) {
   .featured-card {
     flex-direction: row;
@@ -234,6 +199,9 @@ nav li {
   }
   .featured-card .featured-flashcards {
     display: flex;
+  }
+  .featured-card h3 {
+    text-align: start;
   }
 }
 
@@ -257,10 +225,22 @@ nav li {
 
 .featured-card-front {
   height: 100%;
-  width: 60%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-direction: column;
+  margin-top: 1em;
+  gap: 1em;
+}
+
+@media (min-width: 700px) {
+  .featured-card-front {
+    flex-direction: row;
+    margin-top: 0;
+    gap: 0;
+    width: 60%;
+  }
 }
 
 .featured-info {
@@ -269,29 +249,27 @@ nav li {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin-bottom: 2em;
 }
 
-@media (max-width: 700px) {
-  /* .featured-card {
-    width: 350px;
-    aspect-ratio: 1/ 1.3;
-    gap: 2em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  } */
-  .featured-card-front {
-    flex-direction: column;
-    margin-top: 1em;
-    gap: 1em;
-    width: 100%;
+@media (min-width: 700px) {
+  .featured-info {
+    margin-bottom: 0;
   }
 }
 
 .featured-buttons {
   display: flex;
+  justify-content: center;
   gap: 2em;
+}
+
+@media (min-width: 700px) {
+  .featured-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2em;
+  }
 }
 
 /* ---------- OVERRIDE STYLING ON FLASHCARD COMPONENT ORIGINALLY FROM INSIDE ARTICLES --------- */
@@ -375,40 +353,6 @@ nav li {
 }
 /* ---------- END OVERRIDE --------- */
 
-/* .flashcard-nav {
-  align-self: center;
-  width: 70%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.left-arrow,
-.right-arrow {
-  height: 30px;
-  aspect-ratio: 1 / 1;
-  cursor: pointer;
-}
-
-.dots * {
-  height: 15px;
-  aspect-ratio: 1 / 1;
-}
-
-.dots {
-  display: flex;
-  gap: 1em;
-}
-
-.flashcard {
-  align-self: center;
-  width: 90%;
-  aspect-ratio: 1.5/ 0.9;
-  background-color: white;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-} */
-
 featured-image-container {
   width: 40%;
 }
@@ -433,15 +377,22 @@ featured-image-container {
 /* ---------------- FEATURED BACK ---------------- */
 .featured-card-back {
   height: 100%;
-  width: 60%;
+  width: 100%;
   background-color: var(--highlight-color);
   color: white;
-  border-radius: 1.5em 0 0 1.5em;
+  border-radius: 1.5em 1.5em 1.5em 1.5em;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
+}
+
+@media (min-width: 700px) {
+  .featured-card-back {
+    width: 60%;
+    border-radius: 1.5em 0 0 1.5em;
+  }
 }
 
 #featured-back-title {
@@ -458,7 +409,13 @@ featured-image-container {
 .featured-card-back h3 {
   display: inline;
   color: white;
-  margin-left: 3em;
+  margin-left: 1em;
+}
+
+@media (min-width: 1000px) {
+  .featured-card-back h3 {
+    margin-left: 2em;
+  }
 }
 
 .detail-block {
@@ -480,7 +437,12 @@ featured-image-container {
   align-self: center;
   display: flex;
   gap: 2em;
-  margin-left: 10%;
+}
+
+@media (min-width: 700px) {
+  .featured-card-buttons {
+    margin-left: 10%;
+  }
 }
 
 .featured-back-buttons button {
