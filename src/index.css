@@ -791,6 +791,7 @@ featured-image-container {
   font-family: "Fraunces", serif;
   justify-self: center;
   align-self: center;
+  text-align: center;
 }
 
 .nav {
@@ -820,6 +821,12 @@ featured-image-container {
   justify-content: flex-end;
 }
 
+@media (max-width: 600px) {
+  .nav-title {
+    display: none;
+  }
+}
+
 .login {
   cursor: pointer;
   border: 2px solid var(--highlight-color);
@@ -836,9 +843,6 @@ featured-image-container {
 @media all and (max-width: 600px) {
   .nav {
     height: 70px;
-    display: grid;
-    grid-template-columns: 80px 1fr 80px;
-    grid-template-rows: 0.8fr 0.2fr;
   }
 
   .nav-title {
