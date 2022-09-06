@@ -1,70 +1,15 @@
-# Getting Started with Create React App
+# English Deck
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+English Deck is as a minimum viable product for an online-learning platform built with React. The goal was to create highly interactive articles for English learners which included flashcards, quizzes, writing practice, and the ability to read submissions from other learners. What started with an idea for a single page layout which included all of these elements, grew into site based around these articles with its own custom build content management system.
 
-## Available Scripts
+## Technology
 
-In the project directory, you can run:
+It made sense to create the app with React because I wanted the interactive elements of the site to be reusable and as modular as possible. This was not only because some of these elements are used multiple times within the same page, but also to allow me to easily build on the project by creating different page layouts and weaving in new interactive components should I wish to do so in the future. Using Firebase was also an obvious choice as it allows for rapid development in terms of database, storage, authentication and deployment.
 
-### `npm start`
+## Challenges
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+I had built the article itself a little while ago and there was some challenge involved with integrating its various components with the new database structure I had decided on while building the CMS. There was also some challenge associated with standardising the design of the app between the landing page and article elements. This is something which is still a work in progress. Coming back to CSS I had had previously written certainly brought home the importance of naming classes properly.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+I also had to think about how to organise the database when it came to storing user comments. As Firebase is optimised for collections which can hold a large number of smaller documents, I decided on a structure whereby individual articles are stored as documents inside a larger collection, but also contain their own subcollection which holds a separate document for each user comment. This appears to be the most performant solution.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+When deciding to build the site, I knew I would need some kind CMS which allowed me to publish articles to the site, but which would also allow me to populate more the more intricate components which aren’t simply blocks of text. Ultimately I decided that I wanted complete control over this process and decided to build a custom CMS structured around the components in the app.
