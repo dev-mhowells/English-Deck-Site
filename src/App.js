@@ -1,5 +1,6 @@
 import Home from "./Home";
 import Article from "./Article";
+import ScrollToTop from "./ScrollToTop";
 
 import { Routes, Route } from "react-router-dom";
 import React from "react";
@@ -31,17 +32,19 @@ export default function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<Home allArticles={allArticles} />} />
-      <Route
-        path=":articleId"
-        element={
-          <Article
-            allArticles={allArticles}
-            getArticleDetails={getArticleDetails}
-          />
-        }
-      />
-    </Routes>
+    <ScrollToTop>
+      <Routes>
+        <Route path="/" element={<Home allArticles={allArticles} />} />
+        <Route
+          path=":articleId"
+          element={
+            <Article
+              allArticles={allArticles}
+              getArticleDetails={getArticleDetails}
+            />
+          }
+        />
+      </Routes>
+    </ScrollToTop>
   );
 }
