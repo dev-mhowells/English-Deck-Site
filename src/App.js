@@ -30,34 +30,6 @@ export default function App() {
     return allArticles.find((article) => article.articleId === articleId);
   }
 
-  // ----------------------------------------------------- //
-
-  //   const [imgURL, setImgURL] = React.useState("");
-
-  //   React.useEffect(() => {
-  //     getDownloadURL(ref(storage, "images/eye.png"))
-  //       .then((url) => {
-  //         setImgURL(url);
-  //       })
-  //       .catch((error) => {
-  //         switch (error.code) {
-  //           case "storage/object-not-found":
-  //             // File doesn't exist
-  //             break;
-  //           case "storage/unauthorized":
-  //             // User doesn't have permission to access the object
-  //             break;
-  //           case "storage/unknown":
-  //             // Unknown error occurred, inspect the server response
-  //             break;
-  //         }
-  //       });
-  //   }, []);
-
-  //   console.log("IMG URL", imgURL);
-
-  console.log("ALL", allArticles);
-
   return (
     <Routes>
       <Route path="/" element={<Home allArticles={allArticles} />} />

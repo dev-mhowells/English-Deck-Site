@@ -476,7 +476,7 @@ featured-image-container {
   justify-content: center;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1300px) {
   .articles-display {
     justify-content: flex-start;
   }
@@ -497,7 +497,7 @@ featured-image-container {
   align-items: center;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1300px) {
   .article-card {
     margin-bottom: 0;
   }
