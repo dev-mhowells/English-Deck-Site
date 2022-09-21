@@ -86,7 +86,7 @@ export default function FeaturedCard(props) {
                   ))}
                 </ul>
               </div>
-              <div className="featured-back-buttons">
+              <div className="back-buttons featured-back-buttons">
                 <button onClick={toggleFeaturedDetails}>back</button>
                 <button>read</button>
               </div>

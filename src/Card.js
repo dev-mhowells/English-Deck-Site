@@ -73,7 +73,7 @@ export default function Card(props) {
           ))}
         </ul>
       </div>
-      <div className="featured-back-buttons">
+      <div className="back-buttons card-back-buttons">
         <button onClick={toggleCardDetails}>back</button>
         <Link to={`/${props.article.articleId}`}>
           <button>read</button>
