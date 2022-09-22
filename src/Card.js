@@ -1,10 +1,15 @@
 import "./index.css";
 import React from "react";
+import { useRef } from "react";
 
 import { Link } from "react-router-dom";
 
 import { storage } from "./firebase-config";
 import { ref, getDownloadURL } from "firebase/storage";
+
+import { animated } from "react-spring";
+import { useSpring, to } from "@react-spring/web";
+import { useGesture } from "@use-gesture/react";
 
 export default function Card(props) {
   const [cardDetails, setCardDetails] = React.useState(false);
@@ -38,8 +43,37 @@ export default function Card(props) {
     setCardDetails(!cardDetails);
   }
 
+  // ----------------- ANIMATION ---------------------
+
+  const target = useRef(null);
+
+  const [{ scale, zoom }, api] = useSpring(() => ({
+    scale: 1,
+    zoom: 0,
+    config: { mass: 5, tension: 350, friction: 40 },
+  }));
+
+  useGesture(
+    {
+      onHover: ({ hovering }) => {
+        hovering
+          ? api.start({
+              scale: 1.03,
+            })
+          : api.start({ scale: 1 });
+      },
+    },
+    { target, eventOptions: { passive: false } }
+  );
+
   return !cardDetails ? (
-    <div className="article-card">
+    <animated.div
+      className="article-card"
+      ref={target}
+      style={{
+        scale: to([scale, zoom], (s, z) => s + z),
+      }}
+    >
       <div className="circle-image-border">
         <img className="featured-image" src={imgURL}></img>
       </div>
@@ -52,9 +86,15 @@ export default function Card(props) {
           <button className="button">read</button>
         </Link>
       </div>
-    </div>
+    </animated.div>
   ) : (
-    <div className="article-card-back">
+    <animated.div
+      className="article-card-back"
+      ref={target}
+      style={{
+        scale: to([scale, zoom], (s, z) => s + z),
+      }}
+    >
       <h3 id="featured-back-title">{props.article.articleInfo.title}</h3>
       <div className="detail-block">
         <h3 className="subheading-back">Paragraphs:</h3>
@@ -79,6 +119,6 @@ export default function Card(props) {
           <button>read</button>
         </Link>
       </div>
-    </div>
+    </animated.div>
   );
 }
