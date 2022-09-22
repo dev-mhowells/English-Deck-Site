@@ -21,6 +21,10 @@ export default function Card(props) {
   React.useEffect(() => {
     getDownloadURL(ref(storage, `images/${props.article.articleInfo.image}`))
       .then((url) => {
+        console.log(
+          props.article.articleInfo.title,
+          props.article.articleInfo.image
+        );
         setImgURL(url);
       })
       .catch((error) => {
@@ -36,7 +40,7 @@ export default function Card(props) {
             break;
         }
       });
-  }, []);
+  }, [props.filteredCards]);
 
   // toggles card back and front
   function toggleCardDetails() {
