@@ -40,7 +40,7 @@ export default function Card(props) {
             break;
         }
       });
-  }, [props.filteredCards]);
+  }, [props.filteredCards, props.reverseOrder]);
 
   // toggles card back and front
   function toggleCardDetails() {

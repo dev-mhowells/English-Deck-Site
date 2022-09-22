@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import React from "react";
 
 import { db } from "./firebase-config";
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, orderBy } from "firebase/firestore";
 
 export default function App() {
   const [allArticles, setAllArticles] = React.useState([]);
@@ -16,7 +16,7 @@ export default function App() {
   // 2. have some other state change that will cause it to run again..
   React.useEffect(() => {
     async function getAllArticles() {
-      const q = query(collection(db, "articles"));
+      const q = query(collection(db, "articles"), orderBy("createdAt", "desc"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         setAllArticles((prevAllArticles) => [...prevAllArticles, doc.data()]);

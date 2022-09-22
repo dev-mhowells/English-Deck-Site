@@ -6,7 +6,9 @@ import FeaturedCard from "./FeaturedCard";
 
 function Home(props) {
   const [filteredCards, setFilteredCards] = React.useState([]);
-  const [selectedFilter, setSelectedFilter] = React.useState("all");
+  const [levelFilter, setLevelFilter] = React.useState("all");
+  const [orderFilter, setOrderFilter] = React.useState("newest");
+  const [reverseOrder, setReverseOrder] = React.useState(false);
 
   function filterByLevel(level) {
     const filtered = props.allArticles.filter(
@@ -15,21 +17,35 @@ function Home(props) {
     setFilteredCards(filtered);
   }
 
-  function getSelected(e) {
-    setSelectedFilter(e.target.innerText);
+  function getLevel(e) {
+    setLevelFilter(e.target.innerText);
   }
 
-  const allCards =
-    props.allArticles &&
-    props.allArticles.map((article) => {
-      return <Card article={article} />;
-    });
+  function getOrder(e) {
+    setOrderFilter(e.target.innerText);
+  }
 
-  // for some reason need to pass filtered cards so it can be used
-  // in useEffect[] to re-render imgURLs in right order after filter
-  const allFilteredCards = filteredCards.map((article) => {
-    return <Card article={article} filteredCards={filteredCards} />;
-  });
+  // need to pass in props for filteredcard and reverse order to trigger useeffect in
+  // card.js which calls imageURLs again to place them correctly - this seems strange
+  // may be better way
+  function renderCards() {
+    let render;
+    if (filteredCards.length) {
+      render = filteredCards.map((article) => {
+        return (
+          <Card
+            article={article}
+            filteredCards={filteredCards}
+            reverseOrder={reverseOrder}
+          />
+        );
+      });
+    } else
+      render = props.allArticles.map((article) => {
+        return <Card article={article} reverseOrder={reverseOrder} />;
+      });
+    return reverseOrder ? render.reverse() : render;
+  }
 
   return (
     <div className="app">
@@ -54,50 +70,64 @@ function Home(props) {
         <div className="organise-articles">
           <div className="organise-left">
             <button
-              className={selectedFilter === "all" && "selected-button"}
+              className={levelFilter === "all" && "selected-button"}
               onClick={(e) => {
                 setFilteredCards([]);
-                getSelected(e);
+                getLevel(e);
               }}
             >
               all
             </button>
             <button
-              className={selectedFilter === "beginner" && "selected-button"}
+              className={levelFilter === "beginner" && "selected-button"}
               onClick={(e) => {
                 filterByLevel("beginner");
-                getSelected(e);
+                getLevel(e);
               }}
             >
               beginner
             </button>
             <button
-              className={selectedFilter === "intermediate" && "selected-button"}
+              className={levelFilter === "intermediate" && "selected-button"}
               onClick={(e) => {
                 filterByLevel("intermediate");
-                getSelected(e);
+                getLevel(e);
               }}
             >
               intermediate
             </button>
             <button
-              className={selectedFilter === "advanced" && "selected-button"}
+              className={levelFilter === "advanced" && "selected-button"}
               onClick={(e) => {
                 filterByLevel("advanced");
-                getSelected(e);
+                getLevel(e);
               }}
             >
               advanced
             </button>
           </div>
           <div className="organise-right">
-            <button className="selected-button">newest</button>
-            <button>oldest</button>
+            <button
+              className={orderFilter === "newest" && "selected-button"}
+              onClick={(e) => {
+                setReverseOrder(false);
+                getOrder(e);
+              }}
+            >
+              newest
+            </button>
+            <button
+              className={orderFilter === "oldest" && "selected-button"}
+              onClick={(e) => {
+                setReverseOrder(true);
+                getOrder(e);
+              }}
+            >
+              oldest
+            </button>
           </div>
         </div>
-        <div className="articles-display">
-          {filteredCards.length ? allFilteredCards : allCards}
-        </div>
+        <div className="articles-display">{renderCards()}</div>
       </section>
       <footer>
         <p>Home</p>
