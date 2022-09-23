@@ -83,25 +83,32 @@ export default function Comments(props) {
     });
   }, []);
 
+  const allVocab = props.article.vocabulary.map((wordObj) => wordObj.word);
+  // console.log("VOCAB", allVocab);
+
   // reads input of text area on keystroke, checks if checklist word is written, if so adds to usedWords
   // also checks usedWords, if item in usedWords is no longer in textarea, removes
   // from usedWords. One keystroke delay
+
   function readStory(e) {
     setUserStory(e.target.value);
+  }
 
-    for (let i in checklist) {
-      let userStoryLower = userStory.toLocaleLowerCase();
+  function checkStory(e) {
+    const comment = e.target.value;
+    for (let i in allVocab) {
+      let userStoryLower = comment.toLocaleLowerCase();
       if (
-        userStoryLower.includes(checklist[i]) &&
-        !usedWords.includes(checklist[i])
+        userStoryLower.includes(allVocab[i]) &&
+        !usedWords.includes(allVocab[i])
       ) {
-        setUsedWords((prevUsedWords) => [...prevUsedWords, checklist[i]]);
+        setUsedWords((prevUsedWords) => [...prevUsedWords, allVocab[i]]);
       } else if (
-        !userStoryLower.includes(checklist[i]) &&
-        usedWords.includes(checklist[i])
+        !userStoryLower.includes(allVocab[i]) &&
+        usedWords.includes(allVocab[i])
       ) {
         setUsedWords((prevUsedWords) =>
-          prevUsedWords.filter((word) => word !== checklist[i])
+          prevUsedWords.filter((word) => word !== allVocab[i])
         );
       }
     }
@@ -128,7 +135,7 @@ export default function Comments(props) {
     setUsedWords(postUsedWords);
   }
 
-  const checklistDisplay = checklist.map((title) => (
+  const checklistDisplay = allVocab.map((title) => (
     <div className="check-word-pair">
       {usedWords.includes(title) && <img src={check} className="check"></img>}
       <p
@@ -179,14 +186,14 @@ export default function Comments(props) {
           <h3 className="comment-section-title">
             Practice using the words from the article
           </h3>
-          {/* <p className="comment-section-subtitle">
-            <b>Leave a comment or tell your own story!</b>
-          </p> */}
           <div className="post-box">
             <textarea
               className="textarea"
               value={userStory}
-              onChange={readStory}
+              onChange={(e) => {
+                readStory(e);
+                checkStory(e);
+              }}
             ></textarea>
             <button
               className="post-btn"
@@ -196,10 +203,6 @@ export default function Comments(props) {
             </button>
           </div>
           <div className="checklist-container">{checklistDisplay}</div>
-          {/* <div className="more-stories">
-            <img src={downArrow}></img>
-            <h3>Stories from other learners</h3>
-          </div> */}
         </div>
       </div>
       <div className="posts-container">
