@@ -77,15 +77,15 @@ button,
 }
 
 .app button:hover,
-.quiz-container button:hover {
+.app-container button:hover {
   background-color: var(--highlight-color);
   color: white;
 }
 
-.selected-button {
+/* .selected-button {
   background-color: var(--highlight-color);
   color: white;
-}
+} */
 
 .card {
   background-color: var(--secondary-color);
@@ -1088,7 +1088,7 @@ featured-image-container {
 }
 
 .answer {
-  /* padding: 5px 15px; */
+  font-size: 1em;
   padding: 0.3em 0.7em;
   border: 1px solid #023047;
   box-sizing: border-box;
@@ -1176,10 +1176,16 @@ featured-image-container {
 .correct {
   background-color: #94d7a2;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: black;
+  transform: scale(1.1);
+  border: 1px solid var(--highlight-color);
 }
 
 .incorrect {
-  background-color: rgba(237, 17, 17, 0.68);
+  background-color: rgba(202, 30, 30, 0.68);
+  color: black;
+  opacity: 0.8;
+  transform: scale(0.9);
 }
 
 @media all and (max-width: 600px) {
