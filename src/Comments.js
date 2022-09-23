@@ -196,10 +196,10 @@ export default function Comments(props) {
             </button>
           </div>
           <div className="checklist-container">{checklistDisplay}</div>
-          <div className="more-stories">
+          {/* <div className="more-stories">
             <img src={downArrow}></img>
             <h3>Stories from other learners</h3>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="posts-container">
