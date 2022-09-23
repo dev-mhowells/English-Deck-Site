@@ -77,15 +77,16 @@ button,
 }
 
 .app button:hover,
-.app-container button:hover {
+.app-container button:hover,
+.post-btn:hover {
   background-color: var(--highlight-color);
   color: white;
 }
 
-/* .selected-button {
+.selected-button {
   background-color: var(--highlight-color);
   color: white;
-} */
+}
 
 .card {
   background-color: var(--secondary-color);
@@ -1451,21 +1452,79 @@ featured-image-container {
 
 /* ------------------------------- POSTED --------------------------------*/
 
+.comments-container {
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 70%;
+  background-color: white;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.comment-data {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  border-top: 2px solid var(--highlight-color);
+  border-bottom: 2px solid var(--highlight-color);
+  padding: 1em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.comment-text {
+  width: 80%;
+  margin-bottom: 2em;
+}
+
+.comment-vocab-count {
+  margin-top: 1em;
+  text-align: end;
+}
+
+.edit-comment {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  font-size: 0.8em;
+  margin-top: -1em;
+  margin-bottom: 2em;
+}
+
+.edit-comment p:hover {
+  cursor: pointer;
+  color: #023047;
+}
+
 .posts-container {
-  height: 450px;
-  display: grid;
+  /* height: 450px; */
+  /* display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 0.7fr 0.3fr;
-  justify-items: center;
+  justify-items: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .comments-title {
   font-family: "Fraunces";
   font-style: normal;
   font-weight: 600;
-  /* font-size: 42px; */
   color: #023047;
-  margin-top: 30px;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .comment-slider {

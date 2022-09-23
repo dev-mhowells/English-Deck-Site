@@ -16,15 +16,9 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "./firebase-config";
 
-import leftTriangle from "./icons/left-triangle-small.png";
-import rightTriangle from "./icons/right-triangle-small.png";
-import downArrow from "./icons/small-down-arrow.png";
-import binBtn from "./icons/bin.png";
-import editBtn from "./icons/edit.png";
-
 export default function Comments(props) {
   const [userStory, setUserStory] = React.useState(""); // user input on page
-  const [checklist, setChecklist] = React.useState(getAllVocabWords()); // list of target words from article
+  // const [checklist, setChecklist] = React.useState(getAllVocabWords()); // list of target words from article
   const [usedWords, setUsedWords] = React.useState([]); // real time updated list of words user has written and match checklist
   const [currentComment, setCurrentComment] = React.useState(0); // manages displayed comment
   const [comments, setComments] = React.useState(props.article.comments); // user submitted comments stored in Firebase
@@ -84,7 +78,6 @@ export default function Comments(props) {
   }, []);
 
   const allVocab = props.article.vocabulary.map((wordObj) => wordObj.word);
-  // console.log("VOCAB", allVocab);
 
   // reads input of text area on keystroke, checks if checklist word is written, if so adds to usedWords
   // also checks usedWords, if item in usedWords is no longer in textarea, removes
@@ -148,36 +141,42 @@ export default function Comments(props) {
     </div>
   ));
 
-  const postsDisplay =
-    comments &&
-    comments.map((post) => {
-      return (
-        <div className="posted-story">
-          {props.userIn && post.author.id === auth.currentUser.uid && (
-            <img
-              className="post-icons"
-              src={binBtn}
-              onClick={() => {
-                deletePost(post.id);
-              }}
-            ></img>
-          )}
-          {props.userIn && post.author.id === auth.currentUser.uid && (
-            <img
-              className="post-icons edit-btn"
-              src={editBtn}
-              onClick={() => edit(post.post, post.id, post.usedWords)}
-            ></img>
-          )}
-
-          <p className="post-body">{post.post}</p>
-          <p className="post-author">
-            <b>By: </b>
-            {post.author.name}
+  const postsDisplay = comments.map((comment) => {
+    const created = new Date(comment.createdAt?.seconds * 1000);
+    const firstName = comment.author.name.split(" ")[0];
+    return (
+      <div className="comment">
+        <div className="comment-data">
+          <p>By: {firstName}</p>
+          <p>{`${created.getDate()}/${
+            created.getMonth() + 1
+          }/${created.getFullYear()}`}</p>
+        </div>
+        <div className="comment-text">
+          <p>{comment.post}</p>
+          <p className="comment-vocab-count">
+            Vocabulary used: {comment.usedWords.length}
           </p>
         </div>
-      );
-    });
+        {props.userIn && comment.author.id === auth.currentUser.uid && (
+          <div className="edit-comment">
+            <p
+              onClick={() => {
+                deletePost(comment.id);
+              }}
+            >
+              delete
+            </p>
+            <p
+              onClick={() => edit(comment.post, comment.id, comment.usedWords)}
+            >
+              edit
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  });
 
   return (
     <div>
@@ -206,20 +205,8 @@ export default function Comments(props) {
         </div>
       </div>
       <div className="posts-container">
-        <h3 className="comments-title">Comments and Stories</h3>
-        <div className="comment-slider">
-          <img
-            src={leftTriangle}
-            onClick={lastComment}
-            className="triangle"
-          ></img>
-          {postsDisplay && postsDisplay[currentComment]}
-          <img
-            src={rightTriangle}
-            onClick={nextComment}
-            className="triangle"
-          ></img>
-        </div>
+        <h2 className="comments-title">Comments and Stories</h2>
+        <div className="comments-container">{postsDisplay}</div>
       </div>
     </div>
   );

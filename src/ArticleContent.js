@@ -96,29 +96,26 @@ export default function ArticleContent(props) {
 
   // ------------ THIS SECTION HANDLES HIGHLIGHTING FLASHCARD WORDS IN THE ARTICLE BODY!!!!!!!
 
-  //   //   gets all titles of flashcards i.e. all vocab (repeated code)
-  //       let allFlashTitles = [];
-  //       for (let i in flashcards) {
-  //         let flashTitles = flashcards[i].map((flashcard) => flashcard.title);
-  //         allFlashTitles = [...allFlashTitles, ...flashTitles];
-  //       }
+  // highlightWords() to be called on text to render in paragraphs, however,
+  // needs to be called using an array which is not the vocab on the flashcards
+  // but a list of variations which should be created in CMS. e.g. 'phenomenon'
+  // in vocab list won't highlight 'phenomena' in article.
 
-  //   //   returns text with styled words if words are in flashcard titles
-  //       function highlightWords(text) {
-  //         if (text.text) {
-  //           const words = text.text.split(" ");
-
-  //           const highlightedText = words.map((word) => {
-  //             if (allFlashTitles.includes(word)) {
-  //               word = <b className="highlighted-word">{`${word + " "}`}</b>;
-  //               return word;
-  //             } else return word + " ";
-  //           });
-  //           return highlightedText;
-  //         }
-  //       }
-
-  // FLASHCARDS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  function highlightWords(text) {
+    const allVocab = props.article.vocabulary.map((wordObj) => wordObj.word);
+    console.log(allVocab);
+    if (text.text) {
+      const words = text.text.split(" ");
+      console.log(words);
+      const highlightedText = words.map((word) => {
+        if (allVocab.includes(word)) {
+          word = <b className="highlighted-word">{`${word + " "}`}</b>;
+          return word;
+        } else return word + " ";
+      });
+      return highlightedText;
+    }
+  }
 
   //   maps over number of flashcard groups (firebase collections)
   //   passes in set and identifier of group as groupNumber so card can be id'd and saved
@@ -134,12 +131,16 @@ export default function ArticleContent(props) {
         {
           <p className="article-text test-flex">
             {props.article?.paragraphs[index].text}
+            {/* {highlightWords(props.article.paragraphs[index])} */}
           </p>
         }
       </div>
     ) : (
       <div className="card-text-pair first-pair">
-        <p className="article-text">{props.article?.paragraphs[index].text}</p>
+        <p className="article-text">
+          {props.article?.paragraphs[index].text}
+          {/* {highlightWords(props.article.paragraphs[index])} */}
+        </p>
         <Flashcards
           savedCards={savedCards}
           save={save}
