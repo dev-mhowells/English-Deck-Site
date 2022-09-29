@@ -13,7 +13,14 @@ body {
   font-family: "Commissioner", sans-serif;
 }
 
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .app {
+  max-width: 1350px;
   margin: 0 5%;
 }
 
@@ -1566,11 +1573,11 @@ featured-image-container {
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #023047;
+  background: #0230476e;
   border-radius: 10px;
 }
 
