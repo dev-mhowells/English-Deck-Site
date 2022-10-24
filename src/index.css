@@ -1246,6 +1246,16 @@ featured-image-container {
   margin-bottom: -0.5em;
 }
 
+.filled-box {
+  background-color: #011f2e;
+  color: white;
+  text-align: center;
+}
+
+.filled-box:hover {
+  cursor: pointer;
+}
+
 .vocab-words {
   margin-top: 10%;
 }

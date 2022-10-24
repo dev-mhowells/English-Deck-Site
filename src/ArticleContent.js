@@ -9,7 +9,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Flashcards from "./Flashcards";
 import Comments from "./Comments";
 import Quiz from "./Quiz";
-import VocabQuiz from "./VocabQuiz";
+import VocabQuiz from "./vocabQuiz/VocabQuiz";
 
 export default function ArticleContent(props) {
   //-----------------------------------------------------------------------

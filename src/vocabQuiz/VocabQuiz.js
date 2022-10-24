@@ -1,6 +1,8 @@
 import React from "react";
 import { useDrop, useDrag } from "react-dnd";
 
+import Word from "./Word";
+
 export default function VocabQuiz() {
   const [element, setElement] = React.useState();
 
@@ -8,6 +10,10 @@ export default function VocabQuiz() {
     {
       word: "demeanour",
       id: 1,
+    },
+    {
+      word: "doggy",
+      id: 2,
     },
   ];
 
@@ -18,30 +24,43 @@ export default function VocabQuiz() {
     drop: (item) => fillGap(item),
   }));
 
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "word",
-    item: { word: words[0].word },
-  }));
+  //   console.log("this is drag", drag);
 
   function fillGap(item) {
-    console.log(item);
     setElement(item.word);
   }
 
-  const vocab = words.map((word) => <p ref={drag}>{word.word}</p>);
+  const wordsDisplay = words.map((word) => <Word word={word.word} />);
+
+  const [hovering, setHovering] = React.useState();
+
+  function handleMouseOver() {
+    setHovering(true);
+  }
+  function handleMouseOut() {
+    setHovering(false);
+  }
 
   return (
     <div className="quiz-app-container quiz-container vocab-quiz">
       <div className="vocab-questions">
         <p>
           1. His calm{" "}
-          <span className="empty-box" ref={drop}>
-            {element}
+          <span
+            className={`empty-box ${element && "filled-box"}`}
+            ref={drop}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+            onClick={() => {
+              element && setElement("");
+            }}
+          >
+            {element && hovering ? "\u2716" : element}
           </span>
           made me feel relaxed when I was with him
         </p>
       </div>
-      <div className="vocab-words">{vocab}</div>
+      <div className="vocab-words">{wordsDisplay}</div>
     </div>
   );
 }
