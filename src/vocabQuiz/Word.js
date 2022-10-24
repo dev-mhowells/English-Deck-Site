@@ -7,5 +7,9 @@ export default function Word(props) {
     item: { word: props.word },
   }));
 
-  return <p ref={drag}>{props.word}</p>;
+  return (
+    <p ref={drag} style={{ opacity: props.isDropped ? 0.5 : 1 }}>
+      {props.word}
+    </p>
+  );
 }
