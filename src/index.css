@@ -742,13 +742,12 @@ featured-image-container {
   width: 100%;
 }
 
-.toggle-story-btn,
 .toggle-quiz-btn {
   font-family: "Fraunces", serif;
   color: #023047;
   font-size: 28px;
   font-weight: 600;
-  width: 50%;
+  width: 33.33%;
   border-radius: 33px 33px 0px 0px;
   border: none;
   background: #fbf5e0;
@@ -803,7 +802,6 @@ featured-image-container {
     line-height: 25px;
   }
 
-  .toggle-story-btn,
   .toggle-quiz-btn,
   .selected-btn {
     font-size: 22px;
@@ -1126,7 +1124,7 @@ featured-image-container {
   flex-direction: column;
 }
 
-.app-container {
+.quiz-app-container {
   /* height: 550px; */
   justify-self: center;
   background-color: #fdf0c3;
@@ -1232,6 +1230,31 @@ featured-image-container {
   .question {
     margin-left: 10px;
   }
+}
+
+.vocab-quiz {
+  height: 500px;
+}
+
+.empty-box {
+  height: 1.5em;
+  width: 5em;
+  border: 2px solid #011f2e;
+  margin-right: 0.3em;
+  margin-left: 0.3em;
+  display: inline-block;
+  margin-bottom: -0.5em;
+}
+
+.vocab-words {
+  margin-top: 10%;
+}
+
+.vocab-words p {
+  border: 2px solid #011f2e;
+  background-color: #011f2e;
+  color: white;
+  padding: 0.3em 0.6em;
 }
 
 /* ----------------------------- TEXTAREA -------------------------- */

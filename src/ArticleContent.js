@@ -3,9 +3,13 @@ import React from "react";
 import { storage } from "./firebase-config";
 import { ref, getDownloadURL } from "firebase/storage";
 
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import Flashcards from "./Flashcards";
 import Comments from "./Comments";
 import Quiz from "./Quiz";
+import VocabQuiz from "./VocabQuiz";
 
 export default function ArticleContent(props) {
   //-----------------------------------------------------------------------
@@ -194,7 +198,17 @@ export default function ArticleContent(props) {
           Quiz
         </button>
         <button
-          className={`toggle-story-btn ${
+          className={`toggle-quiz-btn ${
+            quizTab === "Vocabulary" && "selected-btn"
+          }`}
+          onClick={(e) => {
+            swapQuizTab(e);
+          }}
+        >
+          Vocabulary
+        </button>
+        <button
+          className={`toggle-quiz-btn ${
             quizTab === "Your Story" && "selected-btn"
           }`}
           onClick={(e) => {
@@ -211,6 +225,11 @@ export default function ArticleContent(props) {
             userIn={props.userIn}
             googleSignIn={props.googleSignIn}
           />
+        )}
+        {quizTab === "Vocabulary" && (
+          <DndProvider backend={HTML5Backend}>
+            <VocabQuiz article={props.article} />
+          </DndProvider>
         )}
       </div>
     </div>

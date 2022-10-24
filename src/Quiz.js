@@ -81,7 +81,7 @@ export default function Quiz(props) {
   ));
 
   return (
-    <div className="app-container">
+    <div className="quiz-app-container">
       <div className="quiz-container">{quizDisplay}</div>
       <button
         className={` check-btn`}
