@@ -11,7 +11,6 @@ export default function ArticleContent(props) {
   //-----------------------------------------------------------------------
 
   const [savedCards, setSavedCards] = React.useState([]); // tracks cards saved by user
-  const [quizStoryDisp, setQuizStoryDisp] = React.useState(true); // tracks display of either quiz or comments section
 
   const [flashcards, setFlashcards] = React.useState(splitVocab()); // see function below
 
@@ -87,11 +86,6 @@ export default function ArticleContent(props) {
     );
   }
 
-  // manages display of quiz and comment section
-  function toggleQuizStory() {
-    setQuizStoryDisp((prevQuizStoryDisp) => !prevQuizStoryDisp);
-  }
-
   // ------------------------------ ARTICLE BODY + FLASHCARDS ------------------------
 
   // ------------ THIS SECTION HANDLES HIGHLIGHTING FLASHCARD WORDS IN THE ARTICLE BODY!!!!!!!
@@ -153,6 +147,13 @@ export default function ArticleContent(props) {
 
   // --------------------------------------------------------------------------
 
+  const [quizTab, setQuizTab] = React.useState("Quiz");
+
+  function swapQuizTab(e) {
+    setQuizTab(e.target.innerHTML);
+    console.log(e.target.innerHTML);
+  }
+
   return (
     <div className="article-container">
       <div className="card-text-pair">
@@ -185,23 +186,27 @@ export default function ArticleContent(props) {
       )}
       <div className="quiz-comment-box">
         <button
-          className={`toggle-quiz-btn ${quizStoryDisp && "selected-btn"}`}
-          onClick={toggleQuizStory}
+          className={`toggle-quiz-btn ${quizTab === "Quiz" && "selected-btn"}`}
+          onClick={(e) => {
+            swapQuizTab(e);
+          }}
         >
           Quiz
         </button>
         <button
-          className={`toggle-story-btn ${!quizStoryDisp && "selected-btn"}`}
-          onClick={toggleQuizStory}
+          className={`toggle-story-btn ${
+            quizTab === "Your Story" && "selected-btn"
+          }`}
+          onClick={(e) => {
+            swapQuizTab(e);
+          }}
         >
           Your Story
         </button>
-        {quizStoryDisp ? (
-          <Quiz article={props.article} />
-        ) : (
+        {quizTab === "Quiz" && <Quiz article={props.article} />}
+        {quizTab === "Your Story" && (
           <Comments
             article={props.article}
-            quizStoryDisp={quizStoryDisp}
             flashcards={flashcards}
             userIn={props.userIn}
             googleSignIn={props.googleSignIn}
