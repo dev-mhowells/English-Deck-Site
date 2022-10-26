@@ -22,7 +22,6 @@ export default function Sentence(props) {
   function fillGap(item) {
     // if there is already an element, remove that element from droppedWords
     // element needs to be included as dependency in useDrop to work
-    console.log("inner element", element);
     element && props.updateUsedWords(element);
     // set element to the word just dropped - props.droppedWords.index
     setElement(item.word);
@@ -40,22 +39,27 @@ export default function Sentence(props) {
     setHovering(false);
   }
 
-  return (
-    <p>
-      1. His calm{" "}
-      <span
-        className={`empty-box ${element && "filled-box"}`}
-        ref={drop}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-        onClick={(e) => {
-          element && setElement("");
-          element && props.updateUsedWords(element);
-        }}
-      >
-        {element && hovering ? "\u2716" : element}
-      </span>
-      made me feel relaxed when I was with him
-    </p>
-  );
+  const words = props.sentenceWord.sentence.split(" ");
+
+  const replacedText = words.map((word) => {
+    if (word == props.sentenceWord.word) {
+      word = (
+        <span
+          className={`empty-box ${element && "filled-box"}`}
+          ref={drop}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+          onClick={(e) => {
+            element && setElement("");
+            element && props.updateUsedWords(element);
+          }}
+        >
+          {element && hovering ? "\u2716" : element}
+        </span>
+      );
+      return word;
+    } else return word + " ";
+  });
+
+  return <p>{replacedText}</p>;
 }

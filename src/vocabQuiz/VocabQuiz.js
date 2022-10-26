@@ -3,19 +3,22 @@ import Sentence from "./Sentence";
 
 import Word from "./Word";
 
-export default function VocabQuiz() {
+export default function VocabQuiz(props) {
   const [droppedWords, setDroppedWords] = React.useState([]);
 
-  const words = ["demeanour", "doggy"];
-  const sentences = ["a"];
+  const words = props.article.vocabulary.map((obj) => obj.word);
+  const sentencesWords = props.article.vocabulary.map((obj) => ({
+    sentence: obj.example,
+    word: obj.word,
+  }));
+
+  console.log("article", props.article);
 
   // takes element and removes from array of dropped words
   function updateUsedWords(word) {
-    console.log("remove word ran");
     setDroppedWords((prevDroppedWords) =>
       prevDroppedWords.filter((e) => e !== word)
     );
-    console.log("removed: ", word);
   }
 
   // returns true if word is in droppedWords
@@ -28,10 +31,11 @@ export default function VocabQuiz() {
     <Word word={word} isDropped={isDropped(word)} id={index} />
   ));
 
-  const sentenceDisplay = sentences.map((sentence, index) => (
+  const sentenceDisplay = sentencesWords.map((sentenceWord, index) => (
     <Sentence
       setDroppedWords={setDroppedWords}
       updateUsedWords={updateUsedWords}
+      sentenceWord={sentenceWord}
       id={index}
     />
   ));
