@@ -4,7 +4,10 @@ import { useDrag } from "react-dnd";
 export default function Word(props) {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "word",
-    item: { word: props.word },
+    item: {
+      word: props.word,
+      id: props.id,
+    },
   }));
 
   return (
