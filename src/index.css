@@ -1157,8 +1157,8 @@ featured-image-container {
 }
 
 .check-btn {
-  margin-top: 40px;
-  margin-bottom: 10px;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .again-btn {
@@ -1233,23 +1233,36 @@ featured-image-container {
 }
 
 .vocab-quiz {
-  height: 500px;
+}
+
+.vocab-questions {
+  margin-top: 2.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.vocab-questions p {
+  height: 2.2em;
+  display: flex;
+  align-items: center;
 }
 
 .empty-box {
   height: 1.5em;
-  width: 5em;
+  min-width: 7em;
+  border-radius: 0.75em;
   border: 2px solid #011f2e;
   margin-right: 0.3em;
   margin-left: 0.3em;
   display: inline-block;
-  margin-bottom: -0.5em;
 }
 
 .filled-box {
-  background-color: #011f2e;
-  color: white;
+  color: var(--highlight-color);
+  font-weight: bold;
   text-align: center;
+  padding: 0.3em 0.6em;
 }
 
 .filled-box:hover {
@@ -1257,14 +1270,25 @@ featured-image-container {
 }
 
 .vocab-words {
-  margin-top: 10%;
+  margin-top: 2em;
+  display: flex;
+  gap: 1em;
 }
 
 .vocab-words p {
+  border-radius: 0.75em;
   border: 2px solid #011f2e;
   background-color: #011f2e;
   color: white;
   padding: 0.3em 0.6em;
+  cursor: grab;
+}
+
+.vocab-correct {
+  background-color: #94d7a2;
+}
+.vocab-incorrect {
+  background-color: rgba(202, 30, 30, 0.68);
 }
 
 /* ----------------------------- TEXTAREA -------------------------- */

@@ -5,6 +5,7 @@ import Word from "./Word";
 
 export default function VocabQuiz(props) {
   const [droppedWords, setDroppedWords] = React.useState([]);
+  const [check, setCheck] = React.useState(false);
 
   const words = props.article.vocabulary.map((obj) => obj.word);
   const sentencesWords = props.article.vocabulary.map((obj) => ({
@@ -12,7 +13,9 @@ export default function VocabQuiz(props) {
     word: obj.word,
   }));
 
-  console.log("article", props.article);
+  function checkAnswers() {
+    setCheck((prevCheck) => !prevCheck);
+  }
 
   // takes element and removes from array of dropped words
   function updateUsedWords(word) {
@@ -37,6 +40,7 @@ export default function VocabQuiz(props) {
       updateUsedWords={updateUsedWords}
       sentenceWord={sentenceWord}
       id={index}
+      check={check}
     />
   ));
 
@@ -44,6 +48,9 @@ export default function VocabQuiz(props) {
     <div className="quiz-app-container quiz-container vocab-quiz">
       <div className="vocab-questions">{sentenceDisplay}</div>
       <div className="vocab-words">{wordsDisplay}</div>
+      <button className="check-btn" onClick={checkAnswers}>
+        check
+      </button>
     </div>
   );
 }

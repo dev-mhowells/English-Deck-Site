@@ -4,6 +4,7 @@ import { useDrop } from "react-dnd";
 export default function Sentence(props) {
   const [hovering, setHovering] = React.useState();
   const [element, setElement] = React.useState();
+  const [isCorrect, setIsCorrect] = React.useState();
 
   // accept is a ref to type in useDrag(), ref={drop} used on empty-box
   // drop executed function on drop, callback function takes item object created in useDrag()
@@ -16,6 +17,11 @@ export default function Sentence(props) {
     }),
     [element]
   );
+
+  function checkAnswer(chosenWord) {
+    setIsCorrect(chosenWord === props.sentenceWord.word);
+    // return {question: props.id, isCorrect}
+  }
 
   // sets the element to the word(item.word) dropped in, changing sentence display
   // adds word to droppedWords arr
@@ -30,6 +36,7 @@ export default function Sentence(props) {
       ...prevDroppedWords,
       item.word,
     ]);
+    checkAnswer(item.word);
   }
 
   function handleMouseOver() {
@@ -45,7 +52,11 @@ export default function Sentence(props) {
     if (word == props.sentenceWord.word) {
       word = (
         <span
-          className={`empty-box ${element && "filled-box"}`}
+          className={`empty-box 
+          ${element && "filled-box"}
+          ${props.check && isCorrect && "vocab-correct"}
+          ${props.check && !isCorrect && "vocab-incorrect"}
+          `}
           ref={drop}
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
