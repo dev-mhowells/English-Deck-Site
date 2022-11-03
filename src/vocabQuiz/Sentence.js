@@ -49,7 +49,11 @@ export default function Sentence(props) {
   const words = props.sentenceWord.sentence.split(" ");
 
   const replacedText = words.map((word) => {
-    if (word == props.sentenceWord.word) {
+    // remove full stops from end of words for comparisons
+    const removedPunctuation =
+      word.charAt(word.length - 1) === "." ? word.slice(0, -1) : word;
+
+    if (removedPunctuation == props.sentenceWord.word) {
       word = (
         <span
           className={`empty-box 
