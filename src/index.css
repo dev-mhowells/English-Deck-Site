@@ -1236,6 +1236,7 @@ featured-image-container {
 }
 
 .vocab-questions {
+  max-width: 80%;
   margin-top: 2.5em;
   display: flex;
   flex-direction: column;
@@ -1243,19 +1244,25 @@ featured-image-container {
 }
 
 .vocab-questions p {
-  height: 2.2em;
-  display: flex;
-  align-items: center;
+  min-height: 2.2em;
+  line-height: 2em;
 }
 
 .empty-box {
   height: 1.5em;
-  min-width: 7em;
+  min-width: 4em;
   border-radius: 0.75em;
   border: 2px solid #011f2e;
   margin-right: 0.3em;
   margin-left: 0.3em;
+  margin-bottom: -0.5em;
   display: inline-block;
+}
+
+@media all and (min-width: 600px) {
+  .empty-box {
+    min-width: 7em;
+  }
 }
 
 .filled-box {
@@ -1263,6 +1270,7 @@ featured-image-container {
   font-weight: bold;
   text-align: center;
   padding: 0.3em 0.6em;
+  line-height: 1.5em;
 }
 
 .filled-box:hover {
@@ -1270,8 +1278,10 @@ featured-image-container {
 }
 
 .vocab-words {
+  max-width: 80%;
   margin-top: 2em;
   display: flex;
+  flex-wrap: wrap;
   gap: 1em;
 }
 

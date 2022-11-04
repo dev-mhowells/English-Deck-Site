@@ -76,5 +76,11 @@ export default function Sentence(props) {
     } else return word + " ";
   });
 
-  return <p>{replacedText}</p>;
+  console.log("this is replaced text", replacedText);
+
+  return (
+    <div>
+      <p>{replacedText}</p>
+    </div>
+  );
 }
