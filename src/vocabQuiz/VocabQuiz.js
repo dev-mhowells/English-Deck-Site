@@ -88,7 +88,7 @@ export default function VocabQuiz(props) {
       <div className="vocab-questions">{sentenceDisplay}</div>
       <div className="vocab-words">{wordsDisplay}</div>
       <button className="check-btn" onClick={checkAnswers}>
-        check
+        {!check ? "check" : "uncheck"}
       </button>
     </div>
   );
